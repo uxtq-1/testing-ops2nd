@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Future Growth</title>
+  <style>
+    /* Fullscreen background and canvas */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: monospace;
+      transition: background 0.5s, color 0.5s;
+      background: white;
+      color: black;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    /* Centered overlay for the message and button */
+    #overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      text-align: center;
+    }
+    #message {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid black;
+    }
+    #advance {
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 2px solid black;
+      border-radius: 5px;
+      transition: background 0.3s;
+      display: inline-block;
+    }
+    #advance:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .top-right {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 3;
+      display: flex;
+      gap: 10px;
+    }
+    .toggle-button {
+      cursor: pointer;
+      padding: 8px 12px;
+      border: 1px solid black;
+      border-radius: 5px;
+      background: none;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="top-right">
+    <button class="toggle-button" id="langToggle">EN</button>
+    <button class="toggle-button" id="themeToggle">Dark</button>
+  </div>
+  <div id="overlay">
+    <div id="message"></div>
+    <div id="advance" onclick="advance()">[Click to advance]</div>
+  </div>
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    
+    // Resize canvas on window resize
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+    
+    // Particles animation
+    class Dot {
+      constructor(x, y, vx, vy) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.radius = 2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > height) this.vy = -this.vy;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'black';
+        ctx.fill();
+      }
+    }
+    const dots = Array.from({ length: 100 }, () => new Dot(
+      Math.random() * width,
+      Math.random() * height,
+      (Math.random() - 0.5) * 1,
+      (Math.random() - 0.5) * 1
+    ));
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      dots.forEach(dot => { dot.update(); dot.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Typewriter effect
+    const messages = {
+      en: "Welcome to your Future Growth with Remote Assistance",
+      es: "Bienvenido a su Crecimiento Futuro con Asistencia Remota"
+    };
+    let lang = 'en';
+    let index = 0;
+    const messageDiv = document.getElementById("message");
+    function typeWriter() {
+      messageDiv.innerHTML = messages[lang].substring(0, index);
+      if (index < messages[lang].length) {
+        index++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+    setTimeout(typeWriter, 1000);
+
+    // Click to advance function
+    function advance() {
+      window.location.href = "next.html";
+    }
+
+    // Language toggle
+    document.getElementById("langToggle").addEventListener("click", function () {
+      lang = lang === 'en' ? 'es' : 'en';
+      this.textContent = lang.toUpperCase();
+      index = 0;
+      typeWriter();
+    });
+
+    // Theme toggle (Dark/Light Mode)
+    document.getElementById("themeToggle").addEventListener("click", function () {
+      if (document.body.style.background === "black") {
+        document.body.style.background = "white";
+        document.body.style.color = "black";
+        this.textContent = "Dark";
+      } else {
+        document.body.style.background = "black";
+        document.body.style.color = "white";
+        this.textContent = "Light";
+      }
+    });
+  </script>
+</body>
+</html>
