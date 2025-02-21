@@ -10,7 +10,7 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: linear-gradient(135deg, #000, #333);
+      background: linear-gradient(135deg, #e6e6fa, #d8bfff); /* Light mode default */
       font-family: monospace;
     }
     canvas {
@@ -34,7 +34,7 @@
       margin-bottom: 20px;
       white-space: nowrap;
       overflow: hidden;
-      color: black; /* Default black */
+      color: black; /* Default black for LIGHT mode */
       border-right: 3px solid black;
     }
     .blink {
@@ -63,7 +63,7 @@
   <div id="overlay">
     <div id="message"></div>
     <div id="advance" onclick="advance()">[Click to advance]</div>
-    <div id="lightMode" onclick="toggleLightMode()">[LIGHT]</div>
+    <div id="lightMode" onclick="toggleTheme()">[DARK]</div>
   </div>
   <script>
     // Canvas setup
@@ -72,7 +72,7 @@
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
     let mouse = { x: null, y: null };
-    let lightMode = false;
+    let isDarkMode = false; // Default is LIGHT mode
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
@@ -105,12 +105,16 @@
         }
         if (distance < 100) {
           let factor = 1 - distance / 100;
-          let r = lightMode ? Math.floor(150 + 80 * factor) : Math.floor(80 * factor);
-          let g = 0;
-          let b = lightMode ? Math.floor(200 + 55 * factor) : Math.floor(128 + 127 * factor);
-          ctx.fillStyle = `rgb(${r},${g},${b})`;
+          if (isDarkMode) {
+            ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+          } else {
+            let r = Math.floor(150 + 80 * factor);
+            let g = 0;
+            let b = Math.floor(200 + 55 * factor);
+            ctx.fillStyle = `rgb(${r},${g},${b})`;
+          }
         } else {
-          ctx.fillStyle = lightMode ? '#d8bfff' : '#fff';
+          ctx.fillStyle = isDarkMode ? `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})` : "#d8bfff";
         }
         ctx.fill();
       }
@@ -134,15 +138,9 @@
           const distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 100) {
             let opacity = 1 - distance / 100;
-            let nearMouse = false;
-            if (mouse.x && mouse.y) {
-              const d1 = Math.sqrt((mouse.x - dots[i].x) ** 2 + (mouse.y - dots[i].y) ** 2);
-              const d2 = Math.sqrt((mouse.x - dots[j].x) ** 2 + (mouse.y - dots[j].y) ** 2);
-              if (d1 < 100 || d2 < 100) nearMouse = true;
-            }
-            ctx.strokeStyle = nearMouse 
-              ? `rgba(${lightMode ? '200,100,255' : '128,0,128'},${opacity})` 
-              : `rgba(${lightMode ? '215,190,255' : '255,255,255'},${opacity})`;
+            ctx.strokeStyle = isDarkMode 
+              ? `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${opacity})`
+              : `rgba(150,0,200,${opacity})`;
             ctx.beginPath();
             ctx.moveTo(dots[i].x, dots[i].y);
             ctx.lineTo(dots[j].x, dots[j].y);
@@ -182,10 +180,13 @@
     }
     setTimeout(typeWriter, 1000);
 
-    function toggleLightMode() {
-      lightMode = !lightMode;
-      document.body.style.background = lightMode ? "linear-gradient(135deg, #3a005a, #6a0572)" : "linear-gradient(135deg, #000, #333)";
-      messageDiv.style.color = lightMode ? "lavender" : "black";
+    function toggleTheme() {
+      isDarkMode = !isDarkMode;
+      document.body.style.background = isDarkMode 
+        ? "linear-gradient(135deg, #000, #333)" 
+        : "linear-gradient(135deg, #e6e6fa, #d8bfff)";
+      messageDiv.style.color = isDarkMode ? "lavender" : "black";
+      document.getElementById("lightMode").innerText = isDarkMode ? "[LIGHT]" : "[DARK]";
     }
 
     function advance() {
