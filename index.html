@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Future Growth</title>
+  <style>
+    /* Fullscreen background and canvas */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #000, #333);
+      font-family: monospace;
+    }
+    canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+    /* Centered overlay for the message and button */
+    #overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      text-align: center;
+    }
+    #message {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: black; /* Default black */
+      border-right: 3px solid black;
+    }
+    .blink {
+      animation: blink 0.8s infinite;
+    }
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+    #advance, #lightMode {
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 10px 20px;
+      border: 2px solid lavender;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+      display: inline-block;
+      margin: 10px;
+    }
+    #advance:hover, #lightMode:hover {
+      background: rgba(230, 230, 250, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div id="overlay">
+    <div id="message"></div>
+    <div id="advance" onclick="advance()">[Click to advance]</div>
+    <div id="lightMode" onclick="toggleLightMode()">[LIGHT]</div>
+  </div>
+  <script>
+    // Canvas setup
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let mouse = { x: null, y: null };
+    let lightMode = false;
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    // Dot class for moving particles
+    class Dot {
+      constructor(x, y, vx, vy) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.radius = 2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x < 0 || this.x > width) this.vx = -this.vx;
+        if (this.y < 0 || this.y > height) this.vy = -this.vy;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        let distance = 999;
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          distance = Math.sqrt(dx * dx + dy * dy);
+        }
+        if (distance < 100) {
+          let factor = 1 - distance / 100;
+          let r = lightMode ? Math.floor(150 + 80 * factor) : Math.floor(80 * factor);
+          let g = 0;
+          let b = lightMode ? Math.floor(200 + 55 * factor) : Math.floor(128 + 127 * factor);
+          ctx.fillStyle = `rgb(${r},${g},${b})`;
+        } else {
+          ctx.fillStyle = lightMode ? '#d8bfff' : '#fff';
+        }
+        ctx.fill();
+      }
+    }
+
+    const dots = [];
+    const numDots = 120;
+    for (let i = 0; i < numDots; i++) {
+      let x = Math.random() * width;
+      let y = Math.random() * height;
+      let vx = (Math.random() - 0.5) * 1;
+      let vy = (Math.random() - 0.5) * 1;
+      dots.push(new Dot(x, y, vx, vy));
+    }
+
+    function connectDots() {
+      for (let i = 0; i < dots.length; i++) {
+        for (let j = i + 1; j < dots.length; j++) {
+          const dx = dots[i].x - dots[j].x;
+          const dy = dots[i].y - dots[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            let opacity = 1 - distance / 100;
+            let nearMouse = false;
+            if (mouse.x && mouse.y) {
+              const d1 = Math.sqrt((mouse.x - dots[i].x) ** 2 + (mouse.y - dots[i].y) ** 2);
+              const d2 = Math.sqrt((mouse.x - dots[j].x) ** 2 + (mouse.y - dots[j].y) ** 2);
+              if (d1 < 100 || d2 < 100) nearMouse = true;
+            }
+            ctx.strokeStyle = nearMouse 
+              ? `rgba(${lightMode ? '200,100,255' : '128,0,128'},${opacity})` 
+              : `rgba(${lightMode ? '215,190,255' : '255,255,255'},${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(dots[i].x, dots[i].y);
+            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      dots.forEach(dot => {
+        dot.update();
+        dot.draw();
+      });
+      connectDots();
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    const message = "Welcome to your Future Growth with Remote Assistance";
+    const messageDiv = document.getElementById("message");
+    let index = 0;
+    function typeWriter() {
+      if (index < message.length) {
+        messageDiv.innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100);
+      } else {
+        messageDiv.classList.add("blink");
+      }
+    }
+    setTimeout(typeWriter, 1000);
+
+    function toggleLightMode() {
+      lightMode = !lightMode;
+      document.body.style.background = lightMode ? "linear-gradient(135deg, #3a005a, #6a0572)" : "linear-gradient(135deg, #000, #333)";
+      messageDiv.style.color = lightMode ? "lavender" : "black";
+    }
+
+    function advance() {
+      window.location.href = "next.html";
+    }
+  </script>
+</body>
+</html>
