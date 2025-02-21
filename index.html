@@ -141,24 +141,30 @@
         }
       }
     }
+function animate() {
+  ctx.clearRect(0, 0, width, height);
+  
+  // Move and draw each particle
+  particles.forEach(particle => {
+    particle.update();
+    particle.draw();
+  });
 
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-    animate();
+  // Connect particles dynamically
+  connectParticles();
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      createParticles();
-    });
+  // Make particles slightly shift over time
+  particles.forEach(p => {
+    p.x += p.vx * 0.5;
+    p.y += p.vy * 0.5;
 
+    // Bounce effect at edges
+    if (p.x <= 0 || p.x >= width) p.vx *= -1;
+    if (p.y <= 0 || p.y >= height) p.vy *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
     const message = "Welcome to your Future Growth with Remote Assistance";
     const messageDiv = document.getElementById("message");
     let index = 0;
