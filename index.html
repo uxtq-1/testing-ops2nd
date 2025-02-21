@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Interactive Future Growth</title>
   <style>
-    /* Fullscreen background and canvas */
     body, html {
       margin: 0;
       padding: 0;
@@ -20,7 +19,6 @@
       left: 0;
       z-index: 1;
     }
-    /* Centered overlay for the message and button */
     #overlay {
       position: absolute;
       top: 50%;
@@ -66,21 +64,20 @@
     <div id="lightMode" onclick="toggleTheme()">[DARK]</div>
   </div>
   <script>
-    // Canvas setup
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let width = canvas.width = window.innerWidth;
     let height = canvas.height = window.innerHeight;
     let mouse = { x: null, y: null };
     let isDarkMode = false; // Default is LIGHT mode
+    let particles = [];
 
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     });
 
-    // Dot class for moving particles
-    class Dot {
+    class Particle {
       constructor(x, y, vx, vy) {
         this.x = x;
         this.y = y;
@@ -89,61 +86,56 @@
         this.radius = 2;
       }
       update() {
-        this.x += this.vx;
-        this.y += this.vy;
+        if (mouse.x && mouse.y) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 100) {
+            this.x += dx * 0.05; // Move towards mouse
+            this.y += dy * 0.05;
+          }
+        } else {
+          this.x += this.vx;
+          this.y += this.vy;
+        }
         if (this.x < 0 || this.x > width) this.vx = -this.vx;
         if (this.y < 0 || this.y > height) this.vy = -this.vy;
       }
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        let distance = 999;
-        if (mouse.x && mouse.y) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          distance = Math.sqrt(dx * dx + dy * dy);
-        }
-        if (distance < 100) {
-          let factor = 1 - distance / 100;
-          if (isDarkMode) {
-            ctx.fillStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-          } else {
-            let r = Math.floor(150 + 80 * factor);
-            let g = 0;
-            let b = Math.floor(200 + 55 * factor);
-            ctx.fillStyle = `rgb(${r},${g},${b})`;
-          }
-        } else {
-          ctx.fillStyle = isDarkMode ? `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})` : "#d8bfff";
-        }
+        let r = 150;
+        let g = 0;
+        let b = 255;
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
         ctx.fill();
       }
     }
 
-    const dots = [];
-    const numDots = 120;
-    for (let i = 0; i < numDots; i++) {
-      let x = Math.random() * width;
-      let y = Math.random() * height;
-      let vx = (Math.random() - 0.5) * 1;
-      let vy = (Math.random() - 0.5) * 1;
-      dots.push(new Dot(x, y, vx, vy));
+    function createParticles() {
+      particles = [];
+      let numParticles = isDarkMode ? 200 : 150; // More particles in dark mode
+      for (let i = 0; i < numParticles; i++) {
+        let x = Math.random() * width;
+        let y = Math.random() * height;
+        let vx = (Math.random() - 0.5) * 1;
+        let vy = (Math.random() - 0.5) * 1;
+        particles.push(new Particle(x, y, vx, vy));
+      }
     }
+    createParticles();
 
-    function connectDots() {
-      for (let i = 0; i < dots.length; i++) {
-        for (let j = i + 1; j < dots.length; j++) {
-          const dx = dots[i].x - dots[j].x;
-          const dy = dots[i].y - dots[j].y;
+    function connectParticles() {
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 100) {
-            let opacity = 1 - distance / 100;
-            ctx.strokeStyle = isDarkMode 
-              ? `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, ${opacity})`
-              : `rgba(150,0,200,${opacity})`;
+            ctx.strokeStyle = `rgba(150,0,255,0.5)`;
             ctx.beginPath();
-            ctx.moveTo(dots[i].x, dots[i].y);
-            ctx.lineTo(dots[j].x, dots[j].y);
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
           }
         }
@@ -152,11 +144,11 @@
 
     function animate() {
       ctx.clearRect(0, 0, width, height);
-      dots.forEach(dot => {
-        dot.update();
-        dot.draw();
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
       });
-      connectDots();
+      connectParticles();
       requestAnimationFrame(animate);
     }
     animate();
@@ -164,6 +156,7 @@
     window.addEventListener('resize', () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
+      createParticles();
     });
 
     const message = "Welcome to your Future Growth with Remote Assistance";
@@ -182,11 +175,10 @@
 
     function toggleTheme() {
       isDarkMode = !isDarkMode;
-      document.body.style.background = isDarkMode 
-        ? "linear-gradient(135deg, #000, #333)" 
-        : "linear-gradient(135deg, #e6e6fa, #d8bfff)";
-      messageDiv.style.color = isDarkMode ? "lavender" : "black";
+      document.body.style.background = isDarkMode ? "#000" : "linear-gradient(135deg, #e6e6fa, #d8bfff)";
+      messageDiv.style.color = isDarkMode ? "white" : "black";
       document.getElementById("lightMode").innerText = isDarkMode ? "[LIGHT]" : "[DARK]";
+      createParticles();
     }
 
     function advance() {
