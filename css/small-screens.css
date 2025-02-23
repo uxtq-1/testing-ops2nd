@@ -58,13 +58,13 @@
     grid-template-columns: 1fr;
   }
 
-  /* Updated Mobile Navigation: visible 100% on small screens, positioned at right */
+  /* Updated Mobile Navigation: visible on small screens, positioned at right */
   #mobileNav {
     display: flex;
     position: fixed;
     bottom: 0;
     left: 15%;             /* 15% margin from the left */
-    width: 85%;            /* covers the remaining right 85% of the screen */
+    width: 85%;            /* occupies the right 85% of the screen */
     background: #fff;
     border-top: 1px solid #ccc;
     justify-content: space-around;
@@ -93,15 +93,28 @@
     font-size: 1.5rem;
   }
 
-  /* Mobile Services Menu */
+  /* Mobile Services Menu - Pops up vertically above the mobile nav */
+  .mobile-services-menu {
+    display: none;
+    position: fixed;
+    bottom: calc(0.5rem + 50px); /* Adjust so it sits above the mobile nav */
+    left: 15%;
+    width: 85%;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    z-index: 2900;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    transform: translateY(100%);
+  }
   .mobile-services-menu.active {
     display: block;
     transform: translateY(0);
   }
   .mobile-services-menu ul {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 1rem;
   }
   .mobile-services-menu li {
     padding: 0.5rem 0;
@@ -114,6 +127,22 @@
     text-decoration: none;
     color: #333;
     font-size: 1rem;
+  }
+
+  /* Additional mobile adjustments (hero text, etc.) */
+  .hero h2 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+  .services {
+    flex-direction: column;
+    align-items: center;
+  }
+  .service-item {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 }
 
