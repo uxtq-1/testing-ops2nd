@@ -1,189 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Future Growth</title>
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      background: linear-gradient(135deg, #e6e6fa, #d8bfff); /* Light mode default */
-      font-family: monospace;
-    }
-    canvas {
-      display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-    #overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      text-align: center;
-    }
-    #message {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      white-space: nowrap;
-      overflow: hidden;
-      color: black; /* Default black for LIGHT mode */
-      border-right: 3px solid black;
-    }
-    .blink {
-      animation: blink 0.8s infinite;
-    }
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-    #advance, #lightMode {
-      font-size: 1.2rem;
-      cursor: pointer;
-      padding: 10px 20px;
-      border: 2px solid lavender;
-      border-radius: 5px;
-      transition: background 0.3s, color 0.3s;
-      display: inline-block;
-      margin: 10px;
-    }
-    #advance:hover, #lightMode:hover {
-      background: rgba(230, 230, 250, 0.2);
-    }
-  </style>
-</head>
-<body>
-  <canvas id="canvas"></canvas>
-  <div id="overlay">
-    <div id="message"></div>
-    <div id="advance" onclick="advance()">[Click to advance]</div>
-    <div id="lightMode" onclick="toggleTheme()">[DARK]</div>
+<nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
+  <div class="nav-section">
+    <button id="langToggle" aria-label="Language Toggle">EN</button>
+    <button id="themeToggle" aria-label="Theme Toggle">Light</button>
   </div>
-  <script>
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    let mouse = { x: null, y: null };
-    let isDarkMode = false; // Default is LIGHT mode
-    let particles = [];
-
-    window.addEventListener('mousemove', (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    class Particle {
-      constructor(x, y, vx, vy) {
-        this.x = x;
-        this.y = y;
-        this.vx = vx;
-        this.vy = vy;
-        this.radius = 2;
-      }
-      update() {
-        if (mouse.x && mouse.y) {
-          const dx = mouse.x - this.x;
-          const dy = mouse.y - this.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) {
-            this.x += dx * 0.05; // Move towards mouse
-            this.y += dy * 0.05;
-          }
-        } else {
-          this.x += this.vx;
-          this.y += this.vy;
-        }
-        if (this.x < 0 || this.x > width) this.vx = -this.vx;
-        if (this.y < 0 || this.y > height) this.vy = -this.vy;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        let r = 150;
-        let g = 0;
-        let b = 255;
-        ctx.fillStyle = `rgb(${r},${g},${b})`;
-        ctx.fill();
-      }
-    }
-
-    function createParticles() {
-      particles = [];
-      let numParticles = isDarkMode ? 200 : 150; // More particles in dark mode
-      for (let i = 0; i < numParticles; i++) {
-        let x = Math.random() * width;
-        let y = Math.random() * height;
-        let vx = (Math.random() - 0.5) * 1;
-        let vy = (Math.random() - 0.5) * 1;
-        particles.push(new Particle(x, y, vx, vy));
-      }
-    }
-    createParticles();
-
-    function connectParticles() {
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 100) {
-            ctx.strokeStyle = `rgba(150,0,255,0.5)`;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      connectParticles();
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-      createParticles();
-    });
-
-    const message = "Welcome to your Future Growth with Remote Assistance";
-    const messageDiv = document.getElementById("message");
-    let index = 0;
-    function typeWriter() {
-      if (index < message.length) {
-        messageDiv.innerHTML += message.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100);
-      } else {
-        messageDiv.classList.add("blink");
-      }
-    }
-    setTimeout(typeWriter, 1000);
-
-    function toggleTheme() {
-      isDarkMode = !isDarkMode;
-      document.body.style.background = isDarkMode ? "#000" : "linear-gradient(135deg, #e6e6fa, #d8bfff)";
-      messageDiv.style.color = isDarkMode ? "white" : "black";
-      document.getElementById("lightMode").innerText = isDarkMode ? "[LIGHT]" : "[DARK]";
-      createParticles();
-    }
-
-    function advance() {
-      window.location.href = "next.html";
-    }
-  </script>
-</body>
-</html>
+  <div class="nav-section">
+    <button id="chatOption" aria-label="Chatbot Option">Chatbot</button>
+  </div>
+  <div class="nav-section">
+    <button id="hamburgerButton" aria-label="Menu Toggle">☰</button>
+    <div id="hamburgerMenu" class="hidden">
+      <a href="business.html">Business Operations</a>
+      <a href="contact.html">Contact Center</a>
+      <a href="it.html">IT Support</a>
+      <a href="professionals.html">Professionals</a>
+    </div>
+  </div>
+  <div class="nav-section">
+    <a href="index.html" id="homeBtn" aria-label="Home">Home</a>
+  </div>
+</nav>
