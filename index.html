@@ -107,35 +107,25 @@
   <!-- ==================================================================
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
-  <!-- Mobile Bottom Navigation Bar -->
-  <nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
-    <!-- Home Button -->
-    <a href="index.html" class="mobile-nav-item" aria-label="Home">
+   <!-- Mobile Bottom Navigation Bar -->
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-item">
       <i class="fas fa-home"></i>
-      <span></span>
+      <span>Home</span>
     </a>
-    <!-- Services Hamburger Button -->
-    <button class="mobile-nav-item" id="servicesToggle" aria-label="Services">
+    <button class="mobile-nav-item" id="services-toggle">
       <i class="fas fa-bars"></i>
       <span>Services</span>
     </button>
     <!-- Language Toggle -->
-    <button class="mobile-nav-item" id="languageToggleMobile" aria-label="Language Toggle">
-      <i class="fas fa-language"></i>
-      <span>EN</span>
-    </button>
+    <button class="mobile-nav-item" id="language-toggle">EN/ES</button>
     <!-- Theme Toggle -->
-    <button class="mobile-nav-item" id="themeToggleMobile" aria-label="Theme Toggle">
-      <i class="fas fa-adjust"></i>
-      <span>Light</span>
-    </button>
-    <!-- Chat Button -->
-    <button class="mobile-nav-item" id="chatToggle" aria-label="Chat">
+    <button class="mobile-nav-item" id="theme-toggle">Dark/Light</button>
+    <a href="#" class="mobile-nav-item">
       <i class="fas fa-comment-alt"></i>
       <span>Chat</span>
-    </button>
+    </a>
   </nav>
-
   <!-- Hidden Mobile Services Menu (Pops up above the mobile nav) -->
   <div class="mobile-services-menu" id="mobileServicesMenu">
     <ul>
