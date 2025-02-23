@@ -9,7 +9,7 @@ const CACHE_URLS = [
   '/it-support.html',
   '/professionals.html',
   '/css/style.css',        // Adjust if needed
-  '/css/global.css',       // Ensure paths are correct
+  '/css/global.css',       // Make sure these match your file paths
   '/css/small-screens.css',
   '/js/main.js',
   '/manifest.json',
@@ -18,28 +18,23 @@ const CACHE_URLS = [
   '/assets/images/icon-512x512.png',
   '/assets/favicon.ico'
 ];
-
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(CACHE_URLS))
   );
 });
-
 self.addEventListener('activate', event => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames =>
       Promise.all(
         cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
+          if (!cacheWhitelist.includes(cacheName)) return caches.delete(cacheName);
         })
       )
     )
   );
 });
-
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request).then(cachedResponse => {
