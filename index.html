@@ -107,35 +107,36 @@
   <!-- ==================================================================
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
+  <!-- Mobile Bottom Navigation Bar -->
   <nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
     <!-- Home Button -->
-    <a href="index.html" aria-label="Home">
-       <i class="fas fa-home"></i>
+    <a href="index.html" class="mobile-nav-item" aria-label="Home">
+      <i class="fas fa-home"></i>
       <span></span>
     </a>
-    <!-- Services Button (toggles submenu) -->
-    <button id="servicesToggle" aria-label="Services">
-        <i class="fas fa-bars"></i>
+    <!-- Services Hamburger Button -->
+    <button class="mobile-nav-item" id="servicesToggle" aria-label="Services">
+      <i class="fas fa-bars"></i>
       <span>Services</span>
     </button>
     <!-- Language Toggle -->
-    <button id="languageToggle" aria-label="Language Toggle">
+    <button class="mobile-nav-item" id="languageToggleMobile" aria-label="Language Toggle">
       <i class="fas fa-language"></i>
       <span>EN</span>
     </button>
     <!-- Theme Toggle -->
-    <button id="themeToggleMobile" aria-label="Theme Toggle">
+    <button class="mobile-nav-item" id="themeToggleMobile" aria-label="Theme Toggle">
       <i class="fas fa-adjust"></i>
       <span>Light</span>
     </button>
     <!-- Chat Button -->
-    <button id="chatToggle" aria-label="Chat">
+    <button class="mobile-nav-item" id="chatToggle" aria-label="Chat">
       <i class="fas fa-comment-alt"></i>
       <span>Chat</span>
-       </button>
+    </button>
   </nav>
 
-  <!-- Hidden Mobile Services Menu (Submenu) -->
+  <!-- Hidden Mobile Services Menu (Pops up above the mobile nav) -->
   <div class="mobile-services-menu" id="mobileServicesMenu">
     <ul>
       <li><a href="business-operations.html">Business Operations</a></li>
@@ -145,23 +146,23 @@
     </ul>
   </div>
 
-  <!-- JavaScript for toggling the mobile services menu -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const servicesToggle = document.getElementById('servicesToggle');
-      const mobileServicesMenu = document.getElementById('mobileServicesMenu');
-
-      servicesToggle.addEventListener('click', function() {
-        // Toggle active class to show/hide the submenu
-        mobileServicesMenu.classList.toggle('active');
-      });
-    });
-  </script>
-</body>
-</html>
   <!-- ==================================================================
        JavaScript: Main Functionality & Mobile Menu Toggle
        ================================================================== -->
   <script src="js/main.js"></script>
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registered:', registration.scope);
+          })
+          .catch(err => {
+            console.error('Service Worker registration failed:', err);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
