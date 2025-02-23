@@ -1,20 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
 
   // ============================
-  // 1) Theme Toggle (Desktop & Mobile)
+  // 1) Theme Toggle
   // ============================
   const themeToggleButton = document.getElementById('theme-toggle');
-  const themeToggleMobile = document.getElementById('themeToggleMobile');
   const bodyElement = document.body;
   const savedTheme = localStorage.getItem('theme') || 'light';
 
   // Initialize theme
   bodyElement.setAttribute('data-theme', savedTheme);
-  if (themeToggleButton) {
+  if(themeToggleButton) {
+    // Display initial button text (optional)
     themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
-    themeToggleButton.addEventListener('click', function() {
+
+    themeToggleButton.addEventListener('click', function(){
       const currentTheme = bodyElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
+      if(currentTheme === 'light'){
         bodyElement.setAttribute('data-theme', 'dark');
         themeToggleButton.textContent = 'Light';
         localStorage.setItem('theme', 'dark');
@@ -25,26 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-  // Similarly for mobile theme toggle
-  if (themeToggleMobile) {
-    themeToggleMobile.addEventListener('click', function() {
-      const currentTheme = bodyElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        bodyElement.setAttribute('data-theme', 'dark');
-        themeToggleMobile.textContent = 'Light';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        bodyElement.setAttribute('data-theme', 'light');
-        themeToggleMobile.textContent = 'Dark';
-        localStorage.setItem('theme', 'light');
-      }
-    });
-  }
 
   // ============================
-  // 2) Language Toggle (Desktop & Mobile)
+  // 2) Language Toggle
   // ============================
-const languageToggleButton = document.getElementById('language-toggle');
+  const languageToggleButton = document.getElementById('language-toggle');
   let currentLanguage = localStorage.getItem('language') || 'en';
 
   // Set initial language
@@ -73,53 +59,74 @@ const languageToggleButton = document.getElementById('language-toggle');
       localStorage.setItem('language', currentLanguage);
     });
   }
+
   // ============================
-  // 3) Modal Functionality (for Floating Icons)
+  // 3) Modal Functionality
   // ============================
   const modalOverlays = document.querySelectorAll('.modal-overlay');
   const closeModalButtons = document.querySelectorAll('[data-close]');
   const floatingIcons = document.querySelectorAll('.floating-icon');
 
+  // Open modals
   floatingIcons.forEach((icon) => {
-    icon.addEventListener('click', function() {
+    icon.addEventListener('click', function(){
       const modalId = icon.getAttribute('data-modal');
       const modalElement = document.getElementById(modalId);
-      if (modalElement) {
+      if(modalElement){
         modalElement.classList.add('active');
         modalElement.focus();
       }
     });
   });
+
+  // Close modals
   closeModalButtons.forEach((btn) => {
-    btn.addEventListener('click', function() {
+    btn.addEventListener('click', function(){
       const parentOverlay = btn.closest('.modal-overlay');
-      if (parentOverlay) {
+      if(parentOverlay){
         parentOverlay.classList.remove('active');
       }
     });
   });
+
+  // Close modal by clicking outside or pressing ESC
   modalOverlays.forEach((overlay) => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) {
+    overlay.addEventListener('click', function(e){
+      if(e.target === overlay){
         overlay.classList.remove('active');
       }
     });
-    overlay.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
+    overlay.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
         overlay.classList.remove('active');
       }
     });
   });
 
   // ============================
-  // 4) Mobile Services Menu Toggle (Hamburger Button)
+  // 4) Mobile Services Toggle
   // ============================
-  const servicesToggle = document.getElementById('servicesToggle');
-  const mobileServicesMenu = document.getElementById('mobileServicesMenu');
+  const servicesToggle = document.getElementById('services-toggle');
+  const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if (servicesToggle && mobileServicesMenu) {
-    servicesToggle.addEventListener('click', function() {
+  if(servicesToggle && mobileServicesMenu) {
+    servicesToggle.addEventListener('click', function(){
       mobileServicesMenu.classList.toggle('active');
+    });
+  }
+
+  // ============================
+  // 5) Register Service Worker (Optional)
+  // ============================
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registered:', registration.scope);
+      })
+      .catch((err) => {
+        console.error('SW registration failed:', err);
+      });
     });
   }
 });
