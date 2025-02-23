@@ -9,16 +9,18 @@
   <title>OPS Solutions Services</title>
   <!-- Global CSS (Desktop-First) -->
   <link rel="stylesheet" href="css/global.css">
-  <!-- Mobile Overrides (Small Screens) -->
+  <!-- Additional overrides for small screens -->
   <link rel="stylesheet" media="(max-width: 768px)" href="css/small-screens.css">
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+  <!-- Font Awesome Stylesheet -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/favicon.ico">
 </head>
 <body>
   <!-- ==================================================================
-       Header Section (Desktop Navigation)
+       Header Section: Navigation & Toggle Buttons (Desktop Only)
        ================================================================== -->
   <header>
     <nav>
@@ -40,8 +42,8 @@
        Hero Section
        ================================================================== -->
   <section class="hero">
-    <h2 data-en="Welcome to OPS Solutions Services" data-es="Bienvenido a OPS Solutions Services">
-      Welcome to OPS Solutions Services
+    <h2 data-en="Welcome to Ops Solutions Services" data-es="Bienvenido a OPS Solutions Services">
+      Welcome to Ops Solutions Services
     </h2>
     <p data-en="Empowering remote solutions with cutting-edge strategies." data-es="Impulsando soluciones remotas con estrategias innovadoras.">
       Empowering remote solutions with cutting-edge strategies.
@@ -60,7 +62,27 @@
       </p>
       <a href="business-operations.html" class="btn" data-en="Learn More" data-es="Saber Más">Learn More</a>
     </div>
-    <!-- Additional service items here -->
+    <div class="service-item">
+      <h3 data-en="Contact Center" data-es="Centro de Contacto">Contact Center</h3>
+      <p data-en="Enhance customer interactions with our contact solutions." data-es="Mejora la interacción con tus clientes con nuestras soluciones de contacto.">
+        Enhance customer interactions with our contact solutions.
+      </p>
+      <a href="contact-center.html" class="btn" data-en="Learn More" data-es="Saber Más">Learn More</a>
+    </div>
+    <div class="service-item">
+      <h3 data-en="IT Support" data-es="Soporte IT">IT Support</h3>
+      <p data-en="Ensure seamless IT operations with our expert support." data-es="Garantiza operaciones de IT sin problemas con nuestro soporte experto.">
+        Ensure seamless IT operations with our expert support.
+      </p>
+      <a href="it-support.html" class="btn" data-en="Learn More" data-es="Saber Más">Learn More</a>
+    </div>
+    <div class="service-item">
+      <h3 data-en="Professionals" data-es="Profesionales">Professionals</h3>
+      <p data-en="Access top-tier professionals for your business needs." data-es="Accede a profesionales de primer nivel para las necesidades de tu negocio.">
+        Access top-tier professionals for your business needs.
+      </p>
+      <a href="professionals.html" class="btn" data-en="Learn More" data-es="Saber Más">Learn More</a>
+    </div>
   </section>
 
   <!-- ==================================================================
@@ -85,37 +107,29 @@
   <!-- ==================================================================
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
-  <!-- Mobile Bottom Navigation Bar -->
   <nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
-    <!-- Home Button -->
-    <a href="index.html" class="mobile-nav-item" aria-label="Home">
-      <i class="fas fa-home"></i>
-      <span>Home</span>
-    </a>
-    <!-- Services Hamburger Button -->
-    <button class="mobile-nav-item" id="servicesToggle" aria-label="Services">
-      <i class="fas fa-bars"></i>
-      <span>Services</span>
-    </button>
-    <!-- Language Toggle -->
-    <button class="mobile-nav-item" id="languageToggleMobile" aria-label="Language Toggle">
-      <i class="fas fa-language"></i>
-      <span>EN/ES</span>
-    </button>
-    <!-- Theme Toggle -->
-    <button class="mobile-nav-item" id="themeToggleMobile" aria-label="Theme Toggle">
-      <i class="fas fa-adjust"></i>
-      <span>Light/Dark</span>
-    </button>
-    <!-- Chat Button -->
-    <button class="mobile-nav-item" id="chatToggle" aria-label="Chat">
-      <i class="fas fa-comment-alt"></i>
-      <span>Chat</span>
-    </button>
+    <div class="nav-section">
+      <button id="langToggle" aria-label="Language Toggle">EN</button>
+      <button id="themeToggle" aria-label="Theme Toggle">Light</button>
+    </div>
+    <div class="nav-section">
+      <button id="chatOption" aria-label="Chatbot Option">Chatbot</button>
+    </div>
+    <div class="nav-section">
+      <button id="hamburgerButton" aria-label="Menu Toggle">☰</button>
+      <div id="hamburgerMenu" class="hidden">
+        <a href="business-operations.html">Business Operations</a>
+        <a href="contact-center.html">Contact Center</a>
+        <a href="it-support.html">IT Support</a>
+        <a href="professionals.html">Professionals</a>
+      </div>
+    </div>
+    <div class="nav-section">
+      <a href="index.html" id="homeBtn" aria-label="Home">Home</a>
+    </div>
   </nav>
-
-  <!-- Hidden Mobile Services Menu (Pops up above the mobile nav) -->
-  <div class="mobile-services-menu" id="mobileServicesMenu">
+  <!-- Hidden Mobile Services Menu -->
+  <div class="mobile-services-menu" id="mobile-services-menu">
     <ul>
       <li><a href="business-operations.html">Business Operations</a></li>
       <li><a href="contact-center.html">Contact Center</a></li>
@@ -128,19 +142,5 @@
        JavaScript: Main Functionality & Mobile Menu Toggle
        ================================================================== -->
   <script src="js/main.js"></script>
-  <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered:', registration.scope);
-          })
-          .catch(err => {
-            console.error('Service Worker registration failed:', err);
-          });
-      });
-    }
-  </script>
 </body>
 </html>
