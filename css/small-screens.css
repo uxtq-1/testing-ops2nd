@@ -1,12 +1,16 @@
+/* Global: Hide mobile nav and services menu by default */
+#mobileNav,
+.mobile-services-menu {
+  display: none;
+}
+
 /* =========================================================
    All mobile overrides for screens ≤ 768px
    ========================================================= */
 @media screen and (max-width: 768px) {
 
   /* Hide desktop nav + toggles on mobile */
-  header nav ul {
-    display: none;
-  }
+  header nav ul,
   .toggle-container {
     display: none;
   }
@@ -90,13 +94,13 @@
 
   /* Mobile Services Menu */
   .mobile-services-menu {
+    display: none;
     position: fixed;
     bottom: calc(0.5rem + 50px); /* adjust to clear the mobile nav */
     left: 15%;
     width: 85%;
     background: #fff;
     border-top: 1px solid #ccc;
-    display: none;
     z-index: 1001;
     max-height: 50%;
     overflow-y: auto;
@@ -128,7 +132,7 @@
 }
 
 /* =========================================================
-   For screens ≥ 769px, hide mobile nav (redundant but safe)
+   For screens ≥ 769px, ensure mobile nav remains hidden
    ========================================================= */
 @media screen and (min-width: 769px) {
   #mobileNav,
