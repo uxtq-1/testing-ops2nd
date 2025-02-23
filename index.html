@@ -108,28 +108,35 @@
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
   <nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
-    <div class="nav-section">
-      <button id="langToggle" aria-label="Language Toggle">EN</button>
-      <button id="themeToggle" aria-label="Theme Toggle">Light</button>
-    </div>
-    <div class="nav-section">
-      <button id="chatOption" aria-label="Chatbot Option">Chatbot</button>
-    </div>
-    <div class="nav-section">
-      <button id="hamburgerButton" aria-label="Menu Toggle">☰</button>
-      <div id="hamburgerMenu" class="hidden">
-        <a href="business-operations.html">Business Operations</a>
-        <a href="contact-center.html">Contact Center</a>
-        <a href="it-support.html">IT Support</a>
-        <a href="professionals.html">Professionals</a>
-      </div>
-    </div>
-    <div class="nav-section">
-      <a href="index.html" id="homeBtn" aria-label="Home">Home</a>
-    </div>
+    <!-- Home Button -->
+    <a href="index.html" aria-label="Home">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <!-- Services Button (toggles submenu) -->
+    <button id="servicesToggle" aria-label="Services">
+      <i class="fas fa-bars"></i>
+      <span>Services</span>
+    </button>
+    <!-- Language Toggle -->
+    <button id="languageToggle" aria-label="Language Toggle">
+      <i class="fas fa-language"></i>
+      <span>EN/ES</span>
+    </button>
+    <!-- Theme Toggle -->
+    <button id="themeToggleMobile" aria-label="Theme Toggle">
+      <i class="fas fa-adjust"></i>
+      <span>Light/Dark</span>
+    </button>
+    <!-- Chat Button -->
+    <button id="chatToggle" aria-label="Chat">
+      <i class="fas fa-comment-alt"></i>
+      <span>Chat</span>
+    </button>
   </nav>
-  <!-- Hidden Mobile Services Menu -->
-  <div class="mobile-services-menu" id="mobile-services-menu">
+
+  <!-- Hidden Mobile Services Menu (Submenu) -->
+  <div class="mobile-services-menu" id="mobileServicesMenu">
     <ul>
       <li><a href="business-operations.html">Business Operations</a></li>
       <li><a href="contact-center.html">Contact Center</a></li>
@@ -138,6 +145,20 @@
     </ul>
   </div>
 
+  <!-- JavaScript for toggling the mobile services menu -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const servicesToggle = document.getElementById('servicesToggle');
+      const mobileServicesMenu = document.getElementById('mobileServicesMenu');
+
+      servicesToggle.addEventListener('click', function() {
+        // Toggle active class to show/hide the submenu
+        mobileServicesMenu.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
   <!-- ==================================================================
        JavaScript: Main Functionality & Mobile Menu Toggle
        ================================================================== -->
