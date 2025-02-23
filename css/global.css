@@ -344,7 +344,8 @@ body[data-theme="dark"] .modal-content form {
 /* ==================================================================
    Hide Mobile Nav & Menu by default (Desktop-First)
    ================================================================== */
-.mobile-nav,
+/* Hide mobile navigation and mobile services menu by default */
+#mobileNav,
 .mobile-services-menu {
   display: none;
-}V
+}
