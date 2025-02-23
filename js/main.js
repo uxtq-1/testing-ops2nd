@@ -44,35 +44,38 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 2) Language Toggle (Desktop & Mobile)
   // ============================
- const languageToggleButton = document.getElementById('language-toggle');
-  let currentLanguage = localStorage.getItem('language') || 'en';
+const languageToggleButton = document.getElementById('language-toggle');
+let currentLanguage = localStorage.getItem('language') || 'en';
 
-  // Set initial language
-  document.body.setAttribute('lang', currentLanguage);
-  if(languageToggleButton) {
-    // Button label
-    languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
+// Set initial language
+document.body.setAttribute('lang', currentLanguage);
+if (languageToggleButton) {
+  // Button label: show "EN" when default and "ES" when switched
+  languageToggleButton.textContent = (currentLanguage === 'en') ? 'EN' : 'ES';
 
-    // Helper function to translate
-    function updateLanguage(){
-      const translationElements = document.querySelectorAll('[data-en]');
-      translationElements.forEach((element) => {
-        element.textContent = (currentLanguage === 'en')
-          ? element.getAttribute('data-en')
-          : element.getAttribute('data-es');
-      });
-    }
-
-    updateLanguage();
-
-    languageToggleButton.addEventListener('click', function(){
-      currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-      languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-      document.body.setAttribute('lang', currentLanguage);
-      updateLanguage();
-      localStorage.setItem('language', currentLanguage);
+  // Helper function to update translations
+  function updateLanguage() {
+    const translationElements = document.querySelectorAll('[data-en]');
+    translationElements.forEach((element) => {
+      element.textContent = (currentLanguage === 'en')
+        ? element.getAttribute('data-en')
+        : element.getAttribute('data-es');
     });
   }
+
+  updateLanguage();
+
+  languageToggleButton.addEventListener('click', function () {
+    // Toggle language
+    currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
+    // Update the button label: show "EN" if the language is "en", otherwise "ES"
+    languageToggleButton.textContent = (currentLanguage === 'en') ? 'EN' : 'ES';
+    document.body.setAttribute('lang', currentLanguage);
+    updateLanguage();
+    localStorage.setItem('language', currentLanguage);
+  });
+}
+
   // ============================
   // 3) Modal Functionality (for Floating Icons)
   // ============================
