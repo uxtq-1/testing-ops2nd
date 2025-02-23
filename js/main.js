@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (languageToggleMobile) {
     languageToggleMobile.addEventListener('click', function() {
       currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-      languageToggleMobile.textContent = (currentLanguage === 'en') ? 'ES/EN' : 'EN/ES';
+      languageToggleMobile.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
       document.body.setAttribute('lang', currentLanguage);
       updateLanguage();
       localStorage.setItem('language', currentLanguage);
