@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   });
 
-  // ============================
+   // ============================
   // 4) Mobile Services Toggle
   // ============================
   const servicesToggle = document.getElementById('services-toggle');
