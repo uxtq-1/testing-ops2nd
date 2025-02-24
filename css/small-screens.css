@@ -11,33 +11,43 @@
     display: none;
   }
 
-  /* Show bottom mobile nav */
-  .mobile-nav {
+ /* Mobile Navigation - shown on small screens */
+  #mobileNav {
     display: flex;
     position: fixed;
     bottom: 0;
     left: 15%;       /* 15% margin from left */
     width: 85%;      /* occupies the right 85% of the screen */
-    right: 0;
     background: #fff;
     border-top: 1px solid #ccc;
     justify-content: space-around;
     align-items: center;
     padding: 0.5rem 0;
-    z-index: 3000; /* on top of floating icons */
+    z-index: 3000;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: translateY(0);
   }
-  .mobile-nav-item {
+
+  /* Mobile Navigation Buttons */
+  #mobileNav a,
+  #mobileNav button {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-size: 0.8rem;
   }
-  .mobile-nav-item i {
+  #mobileNav a:focus,
+  #mobileNav button:focus {
+    outline: none;
+  }
+  #mobileNav i {
     font-size: 1.5rem;
+    margin-bottom: 0.2rem;
   }
-
   /* Floating icons, placed lower in z-index */
   .floating-icons {
     position: fixed;
