@@ -1,5 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-  console.log("DOM fully loaded and parsed.");
+document.addEventListener('DOMContentLoaded', function(){
 
   // ============================
   // 1) Theme Toggle
@@ -10,12 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize theme
   bodyElement.setAttribute('data-theme', savedTheme);
-  if (themeToggleButton) {
+  if(themeToggleButton) {
+    // Set initial button text (optional)
     themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
 
     themeToggleButton.addEventListener('click', function(){
       const currentTheme = bodyElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
+      if(currentTheme === 'light'){
         bodyElement.setAttribute('data-theme', 'dark');
         themeToggleButton.textContent = 'Light';
         localStorage.setItem('theme', 'dark');
@@ -33,41 +33,27 @@ document.addEventListener('DOMContentLoaded', function() {
   const languageToggleButton = document.getElementById('language-toggle');
   let currentLanguage = localStorage.getItem('language') || 'en';
 
-  // Set the initial language attribute and button label
+  // Set initial language
   document.body.setAttribute('lang', currentLanguage);
-  if (languageToggleButton) {
-    // Show the opposite language as the toggle button text
-    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+  if(languageToggleButton) {
+    languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
 
-    // Function to update language on all elements
-    function updateLanguage() {
-      // Update text content for elements with data-en or data-es attributes
-      document.querySelectorAll('[data-en], [data-es]').forEach(el => {
-        const translatedText = el.getAttribute(`data-${currentLanguage}`);
-        if (translatedText !== null && typeof el.textContent !== "undefined") {
-          el.textContent = translatedText;
-        }
-      });
-      // Update placeholder text for inputs and textareas with localized placeholders
-      document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
-        const translatedPlaceholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
-        if (translatedPlaceholder !== null) {
-          el.placeholder = translatedPlaceholder;
-        }
+    // Update text on elements with data-en and data-es attributes
+    function updateLanguage(){
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = (currentLanguage === 'en')
+          ? el.getAttribute('data-en')
+          : el.getAttribute('data-es');
       });
     }
-
-    // Initial language update
     updateLanguage();
 
-    // Toggle language on button click
-    languageToggleButton.addEventListener('click', () => {
-      currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+    languageToggleButton.addEventListener('click', function(){
+      currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
+      languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
       document.body.setAttribute('lang', currentLanguage);
-      languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
       updateLanguage();
       localStorage.setItem('language', currentLanguage);
-      console.log('Language toggled to:', currentLanguage);
     });
   }
 
@@ -79,11 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const floatingIcons = document.querySelectorAll('.floating-icon');
 
   // Open modals when clicking floating icons
-  floatingIcons.forEach(icon => {
+  floatingIcons.forEach((icon) => {
     icon.addEventListener('click', function(){
       const modalId = icon.getAttribute('data-modal');
       const modalElement = document.getElementById(modalId);
-      if (modalElement) {
+      if(modalElement){
         modalElement.classList.add('active');
         modalElement.focus();
       }
@@ -91,24 +77,24 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Close modals via close buttons
-  closeModalButtons.forEach(btn => {
+  closeModalButtons.forEach((btn) => {
     btn.addEventListener('click', function(){
       const parentOverlay = btn.closest('.modal-overlay');
-      if (parentOverlay) {
+      if(parentOverlay){
         parentOverlay.classList.remove('active');
       }
     });
   });
 
-  // Close modal by clicking outside the modal content or pressing ESC
-  modalOverlays.forEach(overlay => {
+  // Close modal by clicking outside modal content or pressing ESC
+  modalOverlays.forEach((overlay) => {
     overlay.addEventListener('click', function(e){
-      if (e.target === overlay) {
+      if(e.target === overlay){
         overlay.classList.remove('active');
       }
     });
     overlay.addEventListener('keydown', function(e){
-      if (e.key === 'Escape') {
+      if(e.key === 'Escape'){
         overlay.classList.remove('active');
       }
     });
@@ -117,18 +103,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 4) Mobile Services Toggle
   // ============================
-  // Updated id from 'services-toggle' to 'servicesToggle'
-  const servicesToggle = document.getElementById('servicesToggle');
+  const servicesToggle = document.getElementById('services-toggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if (servicesToggle && mobileServicesMenu) {
+  if(servicesToggle && mobileServicesMenu) {
     servicesToggle.addEventListener('click', function(){
       mobileServicesMenu.classList.toggle('active');
     });
   }
 
   // ============================
-  // 5) Service Worker Registration Removed
-  // (This is handled inline in your HTML to avoid duplicate registrations)
+  // 5) Register Service Worker
   // ============================
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registered:', registration.scope);
+      })
+      .catch((err) => {
+        console.error('SW registration failed:', err);
+      });
+    });
+  }
 });
