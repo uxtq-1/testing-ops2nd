@@ -9,33 +9,33 @@
     display: none;
   }
 
-  /* Mobile Bottom Navigation */
-  .mobile-nav {
-    display: flex;
-    position: fixed;
-    width: 85%;
-    bottom: 0;
-    left: 50% transform: translateX(-50%);
-    right: 0;
-    background: #fff;
-    border-top: 1px solid #ccc;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5rem 0;
-    z-index: 3100;
-  }
-  .mobile-nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-size: 0.8rem;
-  }
-  .mobile-nav-item i {
-    font-size: 1.5rem;
-  }
-
+* Mobile Bottom Navigation */
+.mobile-nav {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 85%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-top: 1px solid #ccc;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0.5rem 0;
+  z-index: 3000;
+   
+/* Mobile Nav Item Styling Remains */
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.mobile-nav-item i {
+  font-size: 1.5rem;
+}
   /* Floating icons, lower than mobile nav */
   .floating-icons {
     position: fixed;
