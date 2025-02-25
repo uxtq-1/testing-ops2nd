@@ -110,6 +110,12 @@
     transition: transform 0.3s ease;
     transform: translateY(100%);
   }
+  .mobile-services-menu {
+  display: none;
+  }
+  .mobile-services-menu.active {
+  display: block;
+  }
   .mobile-services-menu.active {
     display: block;
     transform: translateY(0);
