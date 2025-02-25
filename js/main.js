@@ -31,47 +31,34 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 2) Language Toggle
   // ============================
-const languageToggleButton = document.getElementById('language-toggle');
+ const languageToggleButton = document.getElementById('language-toggle');
 let currentLanguage = localStorage.getItem('language') || 'en';
 
-// Set the initial language and update the button text
+// Set the initial language attribute and button label
 document.body.setAttribute('lang', currentLanguage);
 if (languageToggleButton) {
   languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
-}
 
-// Function to update all translations
-function updateLanguage() {
-  // Update label texts
-  document.querySelectorAll('label').forEach(label => {
-    const newText = label.getAttribute(`data-${currentLanguage}`);
-    if (newText) {
-      label.textContent = newText;
-    }
-  });
-  
-  // Update input placeholders
-  document.querySelectorAll('input').forEach(input => {
-    const newPlaceholder = input.getAttribute(`data-${currentLanguage}-placeholder`);
-    if (newPlaceholder) {
-      input.placeholder = newPlaceholder;
-    }
-  });
-}
+  function updateLanguage() {
+    // Update text content for elements with data-en or data-es attributes
+    document.querySelectorAll('[data-en], [data-es]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${currentLanguage}`);
+    });
+    // Update placeholder text for elements with data-en-placeholder or data-es-placeholder attributes
+    document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
+      el.placeholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
+    });
+  }
 
-// Initial call to update the language
-updateLanguage();
+  // Initial update call
+  updateLanguage();
 
-// Language toggle functionality
-if (languageToggleButton) {
+  // Toggle language on button click
   languageToggleButton.addEventListener('click', () => {
-    // Toggle the language variable
-    currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-    // Update language settings on the page
+    currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
     document.body.setAttribute('lang', currentLanguage);
     languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
     updateLanguage();
-    // Save the selection
     localStorage.setItem('language', currentLanguage);
   });
 }
