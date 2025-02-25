@@ -221,29 +221,32 @@
   <!-- ==================================================================
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
-  <!-- Mobile Bottom Navigation Bar -->
-  <nav class="mobile-nav">
-    <a href="index.html" class="mobile-nav-item">
-      <i class="fas fa-home"></i>
-      <span data-en="Home" data-es="Inicio">Home</span>
-    </a>
-    <button class="mobile-nav-item" id="services-toggle">
-      <i class="fas fa-bars"></i>
-      <span data-en="Services" data-es="Servicios">Services</span>
-    </button>
-    <button class="mobile-nav-item" id="language-toggle">
-      <i class="fas fa-language"></i>
-      <span data-en="EN" data-es="ES">EN</span>
-    </button>
-    <button class="mobile-nav-item" id="theme-toggle">
-      <i class="fas fa-adjust"></i>
-      <span data-en="Dark" data-es="Light">Dark</span>
-    </button>
-    <a href="#" class="mobile-nav-item">
-      <i class="fas fa-comment-alt"></i>
-      <span data-en="Chat" data-es="Chat">Chat</span>
-    </a>
-  </nav>
+<!-- Mobile Bottom Navigation Bar -->
+<nav class="mobile-nav">
+  <a href="index.html" class="mobile-nav-item">
+    <i class="fas fa-home"></i>
+    <span data-en="Home" data-es="Inicio">Home</span>
+  </a>
+  <!-- Services Toggle with Icon -->
+  <button class="mobile-nav-item" id="services-toggle">
+    <i class="fas fa-chevron-left"></i>
+    <span data-en="Services" data-es="Servicios">Services</span>
+  </button>
+  <!-- Mobile Language Toggle (Unique ID) -->
+  <button class="mobile-nav-item" id="language-toggle-mobile">
+    <i class="fas fa-language"></i>
+    <span data-en="EN" data-es="ES">EN</span>
+  </button>
+  <!-- Mobile Theme Toggle (Unique ID) -->
+  <button class="mobile-nav-item" id="theme-toggle-mobile">
+    <i class="fas fa-adjust"></i>
+    <span data-en="Dark" data-es="Light">Dark</span>
+  </button>
+  <a href="#" class="mobile-nav-item">
+    <i class="fas fa-comment-alt"></i>
+    <span data-en="Chat" data-es="Chat">Chat</span>
+  </a>
+</nav>
 
   <!-- Hidden Mobile Services Menu -->
   <div class="mobile-services-menu" id="mobile-services-menu">
