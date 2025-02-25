@@ -8,6 +8,45 @@
    All mobile overrides for screens ≤ 768px
    ========================================================= */
 @media screen and (max-width: 768px) {
+  #mobileNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 15%;
+    width: 85%;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0;
+    z-index: 3000;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-services-menu {
+    position: fixed;
+    bottom: calc(0.5rem + 50px);
+    left: 15%;
+    width: 85%;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    display: none;
+    z-index: 2900;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    transform: translateY(100%);
+  }
+  .mobile-services-menu.active {
+    display: block;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width: 768px) {
 
   /* Hide desktop nav + toggles on mobile */
   header nav ul,
