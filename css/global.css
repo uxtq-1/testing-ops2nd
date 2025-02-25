@@ -1,6 +1,11 @@
 /* ==================================================================
    Global Reset & Basic Body Styles
    ================================================================== */
+#mobileNav,
+.mobile-services-menu {
+  display: none;
+}
+
 * {
   margin: 0;
   padding: 0;
