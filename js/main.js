@@ -39,6 +39,30 @@ document.addEventListener('DOMContentLoaded', function() {
   if(languageToggleButton) {
     // Button label
     languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
+    // Function to update the text content dynamically based on the current language
+  function updateLanguage() {
+    const translationElements = document.querySelectorAll('[data-en]');
+    
+    // Loop through all elements with data-en and data-es attributes
+    translationElements.forEach(function(element) {
+      const language = currentLanguage === 'en' ? 'data-en' : 'data-es';
+      element.textContent = element.getAttribute(language);
+    });
+    
+    // Update the placeholder text dynamically
+    const placeholderElements = document.querySelectorAll('[data-en-placeholder]');
+    placeholderElements.forEach(function(element) {
+      const language = currentLanguage === 'en' ? 'data-en-placeholder' : 'data-es-placeholder';
+      element.placeholder = element.getAttribute(language);
+    });
+
+    // Update the text for submit buttons dynamically
+    const submitButtons = document.querySelectorAll('button[type="submit"]');
+    submitButtons.forEach(function(button) {
+      const language = currentLanguage === 'en' ? 'data-en' : 'data-es';
+      button.textContent = button.getAttribute(language);
+    });
+  }
 
     // Helper function to translate
     function updateLanguage(){
