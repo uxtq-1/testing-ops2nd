@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize theme
   bodyElement.setAttribute('data-theme', savedTheme);
-  if(themeToggleButton) {
+  if (themeToggleButton) {
     // Display initial button text (optional)
     themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
 
-    themeToggleButton.addEventListener('click', function(){
+    themeToggleButton.addEventListener('click', function() {
       const currentTheme = bodyElement.getAttribute('data-theme');
-      if(currentTheme === 'light'){
+      if (currentTheme === 'light') {
         bodyElement.setAttribute('data-theme', 'dark');
         themeToggleButton.textContent = 'Light';
         localStorage.setItem('theme', 'dark');
@@ -36,23 +36,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Set initial language
   document.body.setAttribute('lang', currentLanguage);
-  if(languageToggleButton) {
+  if (languageToggleButton) {
     // Button label
     languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
 
     // Helper function to translate
-    function updateLanguage(){
+    function updateLanguage() {
       const translationElements = document.querySelectorAll('[data-en]');
       translationElements.forEach((element) => {
         element.textContent = (currentLanguage === 'en')
           ? element.getAttribute('data-en')
           : element.getAttribute('data-es');
       });
+      
+      // Update placeholders
+      const placeholderElements = document.querySelectorAll('[data-en-placeholder]');
+      placeholderElements.forEach((element) => {
+        element.placeholder = (currentLanguage === 'en')
+          ? element.getAttribute('data-en-placeholder')
+          : element.getAttribute('data-es-placeholder');
+      });
+
+      // Update submit button text
+      const submitButtons = document.querySelectorAll('button[type="submit"]');
+      submitButtons.forEach((button) => {
+        button.textContent = (currentLanguage === 'en')
+          ? button.getAttribute('data-en')
+          : button.getAttribute('data-es');
+      });
     }
 
     updateLanguage();
 
-    languageToggleButton.addEventListener('click', function(){
+    // Toggle language on button click
+    languageToggleButton.addEventListener('click', function() {
       currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
       languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
       document.body.setAttribute('lang', currentLanguage);
@@ -70,10 +87,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Open modals
   floatingIcons.forEach((icon) => {
-    icon.addEventListener('click', function(){
+    icon.addEventListener('click', function() {
       const modalId = icon.getAttribute('data-modal');
       const modalElement = document.getElementById(modalId);
-      if(modalElement){
+      if (modalElement) {
         modalElement.classList.add('active');
         modalElement.focus();
       }
@@ -82,9 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close modals
   closeModalButtons.forEach((btn) => {
-    btn.addEventListener('click', function(){
+    btn.addEventListener('click', function() {
       const parentOverlay = btn.closest('.modal-overlay');
-      if(parentOverlay){
+      if (parentOverlay) {
         parentOverlay.classList.remove('active');
       }
     });
@@ -92,26 +109,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close modal by clicking outside or pressing ESC
   modalOverlays.forEach((overlay) => {
-    overlay.addEventListener('click', function(e){
-      if(e.target === overlay){
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) {
         overlay.classList.remove('active');
       }
     });
-    overlay.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
+    overlay.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
         overlay.classList.remove('active');
       }
     });
   });
 
-   // ============================
+  // ============================
   // 4) Mobile Services Toggle
   // ============================
   const servicesToggle = document.getElementById('services-toggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if(servicesToggle && mobileServicesMenu) {
-    servicesToggle.addEventListener('click', function(){
+  if (servicesToggle && mobileServicesMenu) {
+    servicesToggle.addEventListener('click', function() {
       mobileServicesMenu.classList.toggle('active');
     });
   }
@@ -119,15 +136,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 5) Register Service Worker (Optional)
   // ============================
-  if('serviceWorker' in navigator){
+  if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered:', registration.scope);
-      })
-      .catch((err) => {
-        console.error('SW registration failed:', err);
-      });
+        .then((registration) => {
+          console.log('Service Worker registered:', registration.scope);
+        })
+        .catch((err) => {
+          console.error('SW registration failed:', err);
+        });
     });
   }
 });
