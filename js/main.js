@@ -118,14 +118,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 4) Mobile Services Toggle
   // ============================
-  const servicesToggle = document.getElementById('services-toggle');
-  const mobileServicesMenu = document.getElementById('mobile-services-menu');
+  const servicesToggle = document.getElementById('servicesToggle');
+const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if (servicesToggle && mobileServicesMenu) {
-    servicesToggle.addEventListener('click', function(){
-      mobileServicesMenu.classList.toggle('active');
-    });
-  }
+if (servicesToggle && mobileServicesMenu) {
+  servicesToggle.addEventListener('click', function(){
+    mobileServicesMenu.classList.toggle('active');
+  });
+}
 
   // ============================
   // 5) Register Service Worker (Optional)
