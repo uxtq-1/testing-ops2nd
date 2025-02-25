@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Set the initial language attribute and button label
   document.body.setAttribute('lang', currentLanguage);
   if (languageToggleButton) {
+    // Show the opposite language as the toggle button text
     languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
 
     // Function to update language on all elements
@@ -43,11 +44,12 @@ document.addEventListener('DOMContentLoaded', function() {
       // Update text content for elements with data-en or data-es attributes
       document.querySelectorAll('[data-en], [data-es]').forEach(el => {
         const translatedText = el.getAttribute(`data-${currentLanguage}`);
-        if (translatedText !== null) {
+        // For elements that can have text content (e.g., labels, headings, buttons)
+        if (translatedText !== null && typeof el.textContent !== "undefined") {
           el.textContent = translatedText;
         }
       });
-      // Update placeholder text for elements with data-en-placeholder or data-es-placeholder attributes
+      // Update placeholder text for inputs and textareas with localized placeholders
       document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
         const translatedPlaceholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
         if (translatedPlaceholder !== null) {
@@ -61,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle language on button click
     languageToggleButton.addEventListener('click', () => {
-      // Toggle language: if currently 'en', change to 'es'; else 'en'
       currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
       document.body.setAttribute('lang', currentLanguage);
       languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeModalButtons = document.querySelectorAll('[data-close]');
   const floatingIcons = document.querySelectorAll('.floating-icon');
 
-  // Open modals
+  // Open modals when clicking floating icons
   floatingIcons.forEach(icon => {
     icon.addEventListener('click', function(){
       const modalId = icon.getAttribute('data-modal');
@@ -90,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Close modals via button click
+  // Close modals via close buttons
   closeModalButtons.forEach(btn => {
     btn.addEventListener('click', function(){
       const parentOverlay = btn.closest('.modal-overlay');
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Close modal by clicking outside or pressing ESC
+  // Close modal by clicking outside the modal content or pressing ESC
   modalOverlays.forEach(overlay => {
     overlay.addEventListener('click', function(e){
       if (e.target === overlay) {
