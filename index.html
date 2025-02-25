@@ -12,7 +12,9 @@
   <!-- Additional overrides for small screens -->
   <link rel="stylesheet" media="(max-width: 768px)" href="css/small-screens.css">
   <!-- Font Awesome Stylesheet -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/favicon.ico">
 </head>
@@ -90,182 +92,126 @@
     <p>&copy; 2025 OPS Solutions Services. All rights reserved.</p>
   </footer>
 
-  <!-- =========================
-       Floating Icons
-       ========================= -->
+  <!-- ==================================================================
+       Floating Icons (Triggers for Modals)
+       ================================================================== -->
   <div class="floating-icons">
-    <!-- Join Us Icon -->
-    <button class="floating-icon" data-modal="join-modal" aria-label="Join Us">
-      <i class="fa-solid fa-user-plus"></i>
+    <button class="floating-icon" data-modal="join-modal" aria-label="Join Us" tabindex="0">
+      <i class="fas fa-user-plus"></i>
     </button>
-    <!-- Contact Us Icon -->
-    <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us">
-      <i class="fa-solid fa-envelope-open-text"></i>
+    <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us" tabindex="0">
+      <i class="fas fa-envelope-open-text"></i>
     </button>
   </div>
 
-  <!-- =========================
-       Join Us Modal
-       ========================= -->
+  <!-- ==================================================================
+       Join Modal
+       ================================================================== -->
   <div id="join-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
     <div class="modal-content">
-      <!-- Modal Header -->
+      <!-- Modal Header: Title & Close Button -->
       <div class="modal-header">
         <h3 id="joinModalTitle" data-en="Join Us" data-es="Únete a Nosotros">Join Us</h3>
         <button class="close-modal" data-close aria-label="Close">&times;</button>
       </div>
-      <!-- Modal Body -->
+      <!-- Modal Body: Form -->
       <div class="modal-body">
         <form id="join-form">
           <div class="form-row">
             <div class="form-cell">
               <label for="join-name" data-en="Name" data-es="Nombre">Name</label>
-              <input type="text" id="join-name" 
-                     data-en-placeholder="Enter your name" 
-                     data-es-placeholder="Ingrese su nombre" 
-                     placeholder="Enter your name" 
-                     required>
+              <input type="text" id="join-name" placeholder="Enter your name" required>
             </div>
             <div class="form-cell">
-              <label for="join-email" data-en="Email" data-es="Correo">Email</label>
-              <input type="email" id="join-email" 
-                     data-en-placeholder="Enter your email" 
-                     data-es-placeholder="Ingrese su correo electrónico" 
-                     placeholder="Enter your email" 
-                     required>
+              <label for="join-email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <input type="email" id="join-email" placeholder="Enter your email" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="join-contact" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-              <input type="tel" id="join-contact" 
-                     data-en-placeholder="Enter your phone number" 
-                     data-es-placeholder="Ingrese su número de teléfono" 
-                     placeholder="Enter your phone number" 
-                     required>
+              <input type="tel" id="join-contact" placeholder="Enter your contact number" required>
             </div>
             <div class="form-cell">
               <label for="join-date" data-en="Date" data-es="Fecha">Date</label>
-              <input type="date" id="join-date" 
-                     data-en-placeholder="Enter the date" 
-                     data-es-placeholder="Ingrese la fecha" 
-                     placeholder="Enter the date" 
-                     required>
+              <input type="date" id="join-date" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="join-time" data-en="Time" data-es="Hora">Time</label>
-              <input type="time" id="join-time" 
-                     data-en-placeholder="Enter the time" 
-                     data-es-placeholder="Ingrese la hora" 
-                     placeholder="Enter the time" 
-                     required>
+              <input type="time" id="join-time" required>
             </div>
             <div class="form-cell">
-              <label for="join-resume" data-en="Upload Resume" data-es="Subir CV">Upload Resume</label>
-              <input type="file" id="join-resume" accept=".pdf,.doc,.docx" 
-                     data-en="Upload Resume" 
-                     data-es="Subir CV" 
-                     required>
+              <label for="join-resume" data-en="Upload Your Resume" data-es="Sube tu Currículum">Upload Your Resume</label>
+              <input type="file" id="join-resume" accept=".pdf,.doc,.docx" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
-              <label for="join-cover" data-en="Upload Cover Letter" data-es="Subir Carta">Upload Cover Letter</label>
-              <input type="file" id="join-cover" accept=".pdf,.doc,.docx" 
-                     data-en="Upload Cover Letter" 
-                     data-es="Subir Carta" 
-                     required>
+              <label for="join-cover" data-en="Upload Your Cover Letter" data-es="Sube tu Carta de Presentación">Upload Your Cover Letter</label>
+              <input type="file" id="join-cover" accept=".pdf,.doc,.docx" required>
             </div>
             <div class="form-cell">
               <label for="join-comment" data-en="Comment" data-es="Comentario">Comment</label>
-              <textarea id="join-comment" rows="4" 
-                        data-en-placeholder="Tell us about yourself" 
-                        data-es-placeholder="Cuéntanos sobre ti" 
-                        placeholder="Tell us about yourself" 
-                        required></textarea>
+              <textarea id="join-comment" rows="4" placeholder="Tell us about yourself" required></textarea>
             </div>
           </div>
         </form>
       </div>
-      <!-- Modal Footer -->
+      <!-- Modal Footer: Submit Button -->
       <div class="modal-footer">
         <button type="submit" form="join-form" class="submit-button" data-en="Submit" data-es="Enviar">Submit</button>
       </div>
     </div>
   </div>
 
-  <!-- =========================
-       Contact Us Modal
-       ========================= -->
+  <!-- ==================================================================
+       Contact Modal
+       ================================================================== -->
   <div id="contact-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
     <div class="modal-content">
-      <!-- Modal Header -->
+      <!-- Modal Header: Title & Close Button -->
       <div class="modal-header">
         <h3 id="contactModalTitle" data-en="Contact Us" data-es="Contáctenos">Contact Us</h3>
         <button class="close-modal" data-close aria-label="Close">&times;</button>
       </div>
-      <!-- Modal Body -->
+      <!-- Modal Body: Form -->
       <div class="modal-body">
         <form id="contact-form">
           <div class="form-row">
             <div class="form-cell">
               <label for="contact-name" data-en="Name" data-es="Nombre">Name</label>
-              <input type="text" id="contact-name" 
-                     data-en-placeholder="Enter your name" 
-                     data-es-placeholder="Ingrese su nombre" 
-                     placeholder="Enter your name" 
-                     required>
+              <input type="text" id="contact-name" placeholder="Enter your name" required>
             </div>
             <div class="form-cell">
-              <label for="contact-email" data-en="Email" data-es="Correo">Email</label>
-              <input type="email" id="contact-email" 
-                     data-en-placeholder="Enter your email" 
-                     data-es-placeholder="Ingrese su correo electrónico" 
-                     placeholder="Enter your email" 
-                     required>
+              <label for="contact-email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <input type="email" id="contact-email" placeholder="Enter your email" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="contact-number" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-              <input type="tel" id="contact-number" 
-                     data-en-placeholder="Enter your phone number" 
-                     data-es-placeholder="Ingrese su número de teléfono" 
-                     placeholder="Enter your phone number" 
-                     required>
+              <input type="tel" id="contact-number" placeholder="Enter your contact number" required>
             </div>
             <div class="form-cell">
               <label for="contact-date" data-en="Preferred Date" data-es="Fecha Preferida">Preferred Date</label>
-              <input type="date" id="contact-date" 
-                     data-en-placeholder="Enter the date" 
-                     data-es-placeholder="Ingrese la fecha" 
-                     placeholder="Enter the date" 
-                     required>            
+              <input type="date" id="contact-date" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="contact-time" data-en="Preferred Time" data-es="Hora Preferida">Preferred Time</label>
-              <input type="time" id="contact-time" 
-                     data-en-placeholder="Enter the time" 
-                     data-es-placeholder="Ingrese la hora" 
-                     placeholder="Enter the time" 
-                     required>
+              <input type="time" id="contact-time" required>
             </div>
             <div class="form-cell">
               <label for="contact-comments" data-en="Comments" data-es="Comentarios">Comments</label>
-              <textarea id="contact-comments" rows="4" 
-                        data-en-placeholder="What service are you interested in?" 
-                        data-es-placeholder="¿Qué servicio le interesa?" 
-                        placeholder="What service are you interested in?" 
-                        required></textarea>
+              <textarea id="contact-comments" rows="4" placeholder="What service are you interested in?" required></textarea>
             </div>
           </div>
         </form>
       </div>
-      <!-- Modal Footer -->
+      <!-- Modal Footer: Submit Button -->
       <div class="modal-footer">
         <button type="submit" form="contact-form" class="submit-button" data-en="Send" data-es="Enviar">Send</button>
       </div>
@@ -276,33 +222,29 @@
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
   <!-- Mobile Bottom Navigation Bar -->
-  <nav id="mobileNav" role="navigation" aria-label="Mobile Navigation">
-    <!-- Home Button -->
-    <a href="index.html" class="mobile-nav-item" aria-label="Home">
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-item">
       <i class="fas fa-home"></i>
-      <span>Home</span>
+      <span data-en="Home" data-es="Inicio">Home</span>
     </a>
-    <!-- Services Hamburger Button -->
-    <button class="mobile-nav-item" id="servicesToggle" aria-label="Services">
+    <button class="mobile-nav-item" id="services-toggle">
       <i class="fas fa-bars"></i>
-      <span>Services</span>
+      <span data-en="Services" data-es="Servicios">Services</span>
     </button>
-    <!-- Language Toggle -->
-    <button class="mobile-nav-item" id="languageToggleMobile" aria-label="Language Toggle">
+    <button class="mobile-nav-item" id="language-toggle">
       <i class="fas fa-language"></i>
-      <span>EN</span>
+      <span data-en="EN" data-es="ES">EN</span>
     </button>
-    <!-- Theme Toggle -->
-    <button class="mobile-nav-item" id="themeToggleMobile" aria-label="Theme Toggle">
+    <button class="mobile-nav-item" id="theme-toggle">
       <i class="fas fa-adjust"></i>
-      <span>Light</span>
+      <span data-en="Dark" data-es="Light">Dark</span>
     </button>
-    <!-- Chat Button -->
-    <button class="mobile-nav-item" id="chatToggle" aria-label="Chat">
+    <a href="#" class="mobile-nav-item">
       <i class="fas fa-comment-alt"></i>
-      <span>Chat</span>
-    </button>
+      <span data-en="Chat" data-es="Chat">Chat</span>
+    </a>
   </nav>
+
   <!-- Hidden Mobile Services Menu -->
   <div class="mobile-services-menu" id="mobile-services-menu">
     <ul>
@@ -314,24 +256,8 @@
   </div>
 
   <!-- ==================================================================
-       JavaScript: Main Functionality & Mobile Menu Toggle
+       JavaScript: Main Functionality
        ================================================================== -->
-  <script src="js/main.js" defer></script>
-  <!-- Additional scripts can be added below -->
-
-  <!-- Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/js/service-worker.js')
-          .then(registration => {
-            console.log('Service Worker registered with scope:', registration.scope);
-          })
-          .catch(err => {
-            console.error('Service Worker registration failed:', err);
-          });
-      });
-    }
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
