@@ -13,17 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
   if (themeToggleButton) {
     themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
 
-    themeToggleButton.addEventListener('click', function(){
+    themeToggleButton.addEventListener('click', function() {
       const currentTheme = bodyElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        bodyElement.setAttribute('data-theme', 'dark');
-        themeToggleButton.textContent = 'Light';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        bodyElement.setAttribute('data-theme', 'light');
-        themeToggleButton.textContent = 'Dark';
-        localStorage.setItem('theme', 'light');
-      }
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      bodyElement.setAttribute('data-theme', newTheme);
+      themeToggleButton.textContent = newTheme === 'light' ? 'Dark' : 'Light';
+      localStorage.setItem('theme', newTheme);
     });
   }
 
@@ -33,36 +28,35 @@ document.addEventListener('DOMContentLoaded', function() {
   const languageToggleButton = document.getElementById('language-toggle');
   let currentLanguage = localStorage.getItem('language') || 'en';
 
-  // Set the initial language attribute and button label
+  // Set the initial language attribute
   document.body.setAttribute('lang', currentLanguage);
+  
+  // Function to update language on all elements (except the language toggle itself)
+  function updateLanguage() {
+    // Update text content for elements with data-en or data-es attributes
+    document.querySelectorAll('[data-en], [data-es]').forEach(el => {
+      // Avoid overwriting the language toggle button's text (we handle it separately)
+      if (el === languageToggleButton) return;
+      const translatedText = el.getAttribute(`data-${currentLanguage}`);
+      if (translatedText !== null) {
+        el.textContent = translatedText;
+      }
+    });
+    // Update placeholder text for inputs and textareas
+    document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
+      const translatedPlaceholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
+      if (translatedPlaceholder !== null) {
+        el.placeholder = translatedPlaceholder;
+      }
+    });
+  }
+  
+  updateLanguage();
+  
   if (languageToggleButton) {
-    // Show the opposite language as the toggle button text
+    // Set initial toggle button text to the opposite language
     languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
-
-    // Function to update language on all elements
-    function updateLanguage() {
-      // Update text content for elements with data-en or data-es attributes
-      document.querySelectorAll('[data-en], [data-es]').forEach(el => {
-        const translatedText = el.getAttribute(`data-${currentLanguage}`);
-        // For elements that can have text content (e.g., labels, headings, buttons)
-        if (translatedText !== null && typeof el.textContent !== "undefined") {
-          el.textContent = translatedText;
-        }
-      });
-      // Update placeholder text for inputs and textareas with localized placeholders
-      document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
-        const translatedPlaceholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
-        if (translatedPlaceholder !== null) {
-          el.placeholder = translatedPlaceholder;
-        }
-      });
-    }
-
-    // Initial language update
-    updateLanguage();
-
-    // Toggle language on button click
-    languageToggleButton.addEventListener('click', () => {
+    languageToggleButton.addEventListener('click', function() {
       currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
       document.body.setAttribute('lang', currentLanguage);
       languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
@@ -81,19 +75,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Open modals when clicking floating icons
   floatingIcons.forEach(icon => {
-    icon.addEventListener('click', function(){
+    icon.addEventListener('click', function() {
       const modalId = icon.getAttribute('data-modal');
       const modalElement = document.getElementById(modalId);
       if (modalElement) {
         modalElement.classList.add('active');
-        modalElement.focus();
+        // Optionally set focus on a focusable element inside the modal for accessibility
+        const focusable = modalElement.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (focusable) {
+          focusable.focus();
+        }
       }
     });
   });
 
   // Close modals via close buttons
   closeModalButtons.forEach(btn => {
-    btn.addEventListener('click', function(){
+    btn.addEventListener('click', function() {
       const parentOverlay = btn.closest('.modal-overlay');
       if (parentOverlay) {
         parentOverlay.classList.remove('active');
@@ -103,12 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close modal by clicking outside the modal content or pressing ESC
   modalOverlays.forEach(overlay => {
-    overlay.addEventListener('click', function(e){
+    overlay.addEventListener('click', function(e) {
       if (e.target === overlay) {
         overlay.classList.remove('active');
       }
     });
-    overlay.addEventListener('keydown', function(e){
+    overlay.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         overlay.classList.remove('active');
       }
@@ -119,19 +117,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // 4) Mobile Services Toggle
   // ============================
   const servicesToggle = document.getElementById('servicesToggle');
-const mobileServicesMenu = document.getElementById('mobile-services-menu');
+  const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-if (servicesToggle && mobileServicesMenu) {
-  servicesToggle.addEventListener('click', function(){
-    mobileServicesMenu.classList.toggle('active');
-  });
-}
+  if (servicesToggle && mobileServicesMenu) {
+    servicesToggle.addEventListener('click', function() {
+      mobileServicesMenu.classList.toggle('active');
+    });
+  }
 
   // ============================
   // 5) Register Service Worker (Optional)
   // ============================
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+    window.addEventListener('load', function() {
       navigator.serviceWorker.register('/service-worker.js')
         .then(registration => {
           console.log('Service Worker registered:', registration.scope);
