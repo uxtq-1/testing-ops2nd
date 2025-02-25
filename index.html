@@ -90,27 +90,31 @@
     <p>&copy; 2025 OPS Solutions Services. All rights reserved.</p>
   </footer>
 
-  <!-- ==================================================================
-       Floating Icons (Triggers for Modals)
-       ================================================================== -->
+ <!-- =========================
+       Floating Icons
+       ========================= -->
   <div class="floating-icons">
-    <button class="floating-icon" data-modal="join-modal" aria-label="Join Us" tabindex="0">
-      <i class="fas fa-user-plus"></i>
+    <!-- Join Us Icon -->
+    <button class="floating-icon" data-modal="join-modal" aria-label="Join Us">
+      <i class="fa-solid fa-user-plus"></i>
     </button>
-    <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us" tabindex="0">
-      <i class="fas fa-envelope-open-text"></i>
+    <!-- Contact Us Icon -->
+    <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us">
+      <i class="fa-solid fa-envelope-open-text"></i>
     </button>
   </div>
 
-  <!-- ==================================================================
-       Join Modal
-       ================================================================== -->
+  <!-- =========================
+       Join Us Modal
+       ========================= -->
   <div id="join-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="joinModalTitle">
     <div class="modal-content">
+      <!-- Modal Header -->
       <div class="modal-header">
         <h3 id="joinModalTitle" data-en="Join Us" data-es="Únete a Nosotros">Join Us</h3>
         <button class="close-modal" data-close aria-label="Close">&times;</button>
       </div>
+      <!-- Modal Body -->
       <div class="modal-body">
         <form id="join-form">
           <div class="form-row">
@@ -119,14 +123,14 @@
               <input type="text" id="join-name" placeholder="Enter your name" required>
             </div>
             <div class="form-cell">
-              <label for="join-email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <label for="join-email" data-en="Email" data-es="Correo">Email</label>
               <input type="email" id="join-email" placeholder="Enter your email" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="join-contact" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-              <input type="tel" id="join-contact" placeholder="Enter your contact number" required>
+              <input type="tel" id="join-contact" placeholder="Enter your phone number" required>
             </div>
             <div class="form-cell">
               <label for="join-date" data-en="Date" data-es="Fecha">Date</label>
@@ -139,13 +143,13 @@
               <input type="time" id="join-time" required>
             </div>
             <div class="form-cell">
-              <label for="join-resume" data-en="Upload Your Resume" data-es="Sube tu Currículum">Upload Your Resume</label>
+              <label for="join-resume" data-en="Upload Resume" data-es="Subir CV">Upload Resume</label>
               <input type="file" id="join-resume" accept=".pdf,.doc,.docx" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
-              <label for="join-cover" data-en="Upload Your Cover Letter" data-es="Sube tu Carta de Presentación">Upload Your Cover Letter</label>
+              <label for="join-cover" data-en="Upload Cover Letter" data-es="Subir Carta">Upload Cover Letter</label>
               <input type="file" id="join-cover" accept=".pdf,.doc,.docx" required>
             </div>
             <div class="form-cell">
@@ -155,21 +159,24 @@
           </div>
         </form>
       </div>
+      <!-- Modal Footer -->
       <div class="modal-footer">
         <button type="submit" form="join-form" class="submit-button" data-en="Submit" data-es="Enviar">Submit</button>
       </div>
     </div>
   </div>
 
-  <!-- ==================================================================
-       Contact Modal
-       ================================================================== -->
+  <!-- =========================
+       Contact Us Modal
+       ========================= -->
   <div id="contact-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
     <div class="modal-content">
+      <!-- Modal Header -->
       <div class="modal-header">
         <h3 id="contactModalTitle" data-en="Contact Us" data-es="Contáctenos">Contact Us</h3>
         <button class="close-modal" data-close aria-label="Close">&times;</button>
       </div>
+      <!-- Modal Body -->
       <div class="modal-body">
         <form id="contact-form">
           <div class="form-row">
@@ -178,14 +185,14 @@
               <input type="text" id="contact-name" placeholder="Enter your name" required>
             </div>
             <div class="form-cell">
-              <label for="contact-email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <label for="contact-email" data-en="Email" data-es="Correo">Email</label>
               <input type="email" id="contact-email" placeholder="Enter your email" required>
             </div>
           </div>
           <div class="form-row">
             <div class="form-cell">
               <label for="contact-number" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-              <input type="tel" id="contact-number" placeholder="Enter your contact number" required>
+              <input type="tel" id="contact-number" placeholder="Enter your phone number" required>
             </div>
             <div class="form-cell">
               <label for="contact-date" data-en="Preferred Date" data-es="Fecha Preferida">Preferred Date</label>
@@ -204,12 +211,12 @@
           </div>
         </form>
       </div>
+      <!-- Modal Footer -->
       <div class="modal-footer">
         <button type="submit" form="contact-form" class="submit-button" data-en="Send" data-es="Enviar">Send</button>
       </div>
     </div>
   </div>
-
   <!-- ==================================================================
        Mobile Bottom Navigation & Services Menu (Small Screens)
        ================================================================== -->
