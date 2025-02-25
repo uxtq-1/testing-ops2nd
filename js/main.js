@@ -31,59 +31,37 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 2) Language Toggle
   // ============================
-  const languageToggleButton = document.getElementById('language-toggle');
-  let currentLanguage = localStorage.getItem('language') || 'en';
+ const languageToggleButton = document.getElementById('language-toggle');
+let currentLanguage = localStorage.getItem('language') || 'en';
 
-  // Set initial language
-  document.body.setAttribute('lang', currentLanguage);
-  if(languageToggleButton) {
-    // Button label
-    languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-    // Function to update the text content dynamically based on the current language
+// Set the initial language attribute and button label
+document.body.setAttribute('lang', currentLanguage);
+if (languageToggleButton) {
+  languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+
   function updateLanguage() {
-    const translationElements = document.querySelectorAll('[data-en]');
-    
-    // Loop through all elements with data-en and data-es attributes
-    translationElements.forEach(function(element) {
-      const language = currentLanguage === 'en' ? 'data-en' : 'data-es';
-      element.textContent = element.getAttribute(language);
+    // Update text content for elements with data-en or data-es attributes
+    document.querySelectorAll('[data-en], [data-es]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${currentLanguage}`);
     });
-    
-    // Update the placeholder text dynamically
-    const placeholderElements = document.querySelectorAll('[data-en-placeholder]');
-    placeholderElements.forEach(function(element) {
-      const language = currentLanguage === 'en' ? 'data-en-placeholder' : 'data-es-placeholder';
-      element.placeholder = element.getAttribute(language);
-    });
-
-    // Update the text for submit buttons dynamically
-    const submitButtons = document.querySelectorAll('button[type="submit"]');
-    submitButtons.forEach(function(button) {
-      const language = currentLanguage === 'en' ? 'data-en' : 'data-es';
-      button.textContent = button.getAttribute(language);
+    // Update placeholder text for elements with data-en-placeholder or data-es-placeholder attributes
+    document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
+      el.placeholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
     });
   }
 
-    // Helper function to translate
-    function updateLanguage(){
-      const translationElements = document.querySelectorAll('[data-en]');
-      translationElements.forEach((element) => {
-        element.textContent = (currentLanguage === 'en')
-          ? element.getAttribute('data-en')
-          : element.getAttribute('data-es');
-      });
-    }
+  // Initial update call
+  updateLanguage();
 
+  // Toggle language on button click
+  languageToggleButton.addEventListener('click', () => {
+    currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+    document.body.setAttribute('lang', currentLanguage);
+    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
     updateLanguage();
-
-    languageToggleButton.addEventListener('click', function(){
-      currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-      languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-      document.body.setAttribute('lang', currentLanguage);
-      updateLanguage();
-      localStorage.setItem('language', currentLanguage);
-    });
-  }
+    localStorage.setItem('language', currentLanguage);
+  });
+}
 
   // ============================
   // 3) Modal Functionality
