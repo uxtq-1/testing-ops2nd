@@ -10,13 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Initialize theme
   bodyElement.setAttribute('data-theme', savedTheme);
-  if(themeToggleButton) {
-    // Display initial button text (optional)
+  if (themeToggleButton) {
     themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
 
     themeToggleButton.addEventListener('click', function(){
       const currentTheme = bodyElement.getAttribute('data-theme');
-      if(currentTheme === 'light'){
+      if (currentTheme === 'light') {
         bodyElement.setAttribute('data-theme', 'dark');
         themeToggleButton.textContent = 'Light';
         localStorage.setItem('theme', 'dark');
@@ -31,37 +30,46 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 2) Language Toggle
   // ============================
- const languageToggleButton = document.getElementById('language-toggle');
-let currentLanguage = localStorage.getItem('language') || 'en';
+  const languageToggleButton = document.getElementById('language-toggle');
+  let currentLanguage = localStorage.getItem('language') || 'en';
 
-// Set the initial language attribute and button label
-document.body.setAttribute('lang', currentLanguage);
-if (languageToggleButton) {
-  languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+  // Set the initial language attribute and button label
+  document.body.setAttribute('lang', currentLanguage);
+  if (languageToggleButton) {
+    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
 
-  function updateLanguage() {
-    // Update text content for elements with data-en or data-es attributes
-    document.querySelectorAll('[data-en], [data-es]').forEach(el => {
-      el.textContent = el.getAttribute(`data-${currentLanguage}`);
-    });
-    // Update placeholder text for elements with data-en-placeholder or data-es-placeholder attributes
-    document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
-      el.placeholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
+    // Function to update language on all elements
+    function updateLanguage() {
+      // Update text content for elements with data-en or data-es attributes
+      document.querySelectorAll('[data-en], [data-es]').forEach(el => {
+        const translatedText = el.getAttribute(`data-${currentLanguage}`);
+        if (translatedText !== null) {
+          el.textContent = translatedText;
+        }
+      });
+      // Update placeholder text for elements with data-en-placeholder or data-es-placeholder attributes
+      document.querySelectorAll('[data-en-placeholder], [data-es-placeholder]').forEach(el => {
+        const translatedPlaceholder = el.getAttribute(`data-${currentLanguage}-placeholder`);
+        if (translatedPlaceholder !== null) {
+          el.placeholder = translatedPlaceholder;
+        }
+      });
+    }
+
+    // Initial language update
+    updateLanguage();
+
+    // Toggle language on button click
+    languageToggleButton.addEventListener('click', () => {
+      // Toggle language: if currently 'en', change to 'es'; else 'en'
+      currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
+      document.body.setAttribute('lang', currentLanguage);
+      languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
+      updateLanguage();
+      localStorage.setItem('language', currentLanguage);
+      console.log('Language toggled to:', currentLanguage);
     });
   }
-
-  // Initial update call
-  updateLanguage();
-
-  // Toggle language on button click
-  languageToggleButton.addEventListener('click', () => {
-    currentLanguage = currentLanguage === 'en' ? 'es' : 'en';
-    document.body.setAttribute('lang', currentLanguage);
-    languageToggleButton.textContent = currentLanguage === 'en' ? 'ES' : 'EN';
-    updateLanguage();
-    localStorage.setItem('language', currentLanguage);
-  });
-}
 
   // ============================
   // 3) Modal Functionality
@@ -71,48 +79,48 @@ if (languageToggleButton) {
   const floatingIcons = document.querySelectorAll('.floating-icon');
 
   // Open modals
-  floatingIcons.forEach((icon) => {
+  floatingIcons.forEach(icon => {
     icon.addEventListener('click', function(){
       const modalId = icon.getAttribute('data-modal');
       const modalElement = document.getElementById(modalId);
-      if(modalElement){
+      if (modalElement) {
         modalElement.classList.add('active');
         modalElement.focus();
       }
     });
   });
 
-  // Close modals
-  closeModalButtons.forEach((btn) => {
+  // Close modals via button click
+  closeModalButtons.forEach(btn => {
     btn.addEventListener('click', function(){
       const parentOverlay = btn.closest('.modal-overlay');
-      if(parentOverlay){
+      if (parentOverlay) {
         parentOverlay.classList.remove('active');
       }
     });
   });
 
   // Close modal by clicking outside or pressing ESC
-  modalOverlays.forEach((overlay) => {
+  modalOverlays.forEach(overlay => {
     overlay.addEventListener('click', function(e){
-      if(e.target === overlay){
+      if (e.target === overlay) {
         overlay.classList.remove('active');
       }
     });
     overlay.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
+      if (e.key === 'Escape') {
         overlay.classList.remove('active');
       }
     });
   });
 
-   // ============================
+  // ============================
   // 4) Mobile Services Toggle
   // ============================
   const servicesToggle = document.getElementById('services-toggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if(servicesToggle && mobileServicesMenu) {
+  if (servicesToggle && mobileServicesMenu) {
     servicesToggle.addEventListener('click', function(){
       mobileServicesMenu.classList.toggle('active');
     });
@@ -121,15 +129,15 @@ if (languageToggleButton) {
   // ============================
   // 5) Register Service Worker (Optional)
   // ============================
-  if('serviceWorker' in navigator){
+  if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered:', registration.scope);
-      })
-      .catch((err) => {
-        console.error('SW registration failed:', err);
-      });
+        .then(registration => {
+          console.log('Service Worker registered:', registration.scope);
+        })
+        .catch(err => {
+          console.error('Service Worker registration failed:', err);
+        });
     });
   }
 });
