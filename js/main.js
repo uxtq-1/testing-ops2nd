@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Update text content for elements with data-en or data-es attributes
       document.querySelectorAll('[data-en], [data-es]').forEach(el => {
         const translatedText = el.getAttribute(`data-${currentLanguage}`);
-        // For elements that can have text content (e.g., labels, headings, buttons)
         if (translatedText !== null && typeof el.textContent !== "undefined") {
           el.textContent = translatedText;
         }
@@ -118,7 +117,8 @@ document.addEventListener('DOMContentLoaded', function() {
   // ============================
   // 4) Mobile Services Toggle
   // ============================
-  const servicesToggle = document.getElementById('services-toggle');
+  // Updated id from 'services-toggle' to 'servicesToggle'
+  const servicesToggle = document.getElementById('servicesToggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
   if (servicesToggle && mobileServicesMenu) {
@@ -128,17 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // ============================
-  // 5) Register Service Worker (Optional)
+  // 5) Service Worker Registration Removed
+  // (This is handled inline in your HTML to avoid duplicate registrations)
   // ============================
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(registration => {
-          console.log('Service Worker registered:', registration.scope);
-        })
-        .catch(err => {
-          console.error('Service Worker registration failed:', err);
-        });
-    });
-  }
 });
