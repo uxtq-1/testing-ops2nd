@@ -104,9 +104,9 @@ console.log("DOM fully loaded and parsed.");
       }
     });
   });
-  
+
   // ============================
-  //  4) Mobile Services Toggle: mobile-services-menu
+  // 4) Mobile Services Toggle
   // ============================
   const servicesToggle = document.getElementById('services-toggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
