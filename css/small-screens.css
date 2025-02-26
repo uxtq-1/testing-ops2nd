@@ -91,7 +91,7 @@
 .mobile-services-menu {
   position: fixed;
   bottom: 60px;
-  left: 20px; /* Aligns to the right side */
+  right: 0; /* Aligns to the right side */
   background: #fff;
   border-top: 1px solid #ccc;
   display: none;
