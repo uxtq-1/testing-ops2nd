@@ -1,33 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 console.log("DOM fully loaded and parsed.");
 
-
   // ============================
-  // 1) Theme Toggle
-  // ============================
-const themeToggleButton = document.getElementById('theme-toggle');
-const bodyElement = document.body;
-const savedTheme = localStorage.getItem('theme') || 'light';
-
-// Initialize theme
-bodyElement.setAttribute('data-theme', savedTheme);
-themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
-
-themeToggleButton.addEventListener('click', function(){
-  const currentTheme = bodyElement.getAttribute('data-theme');
-  if(currentTheme === 'light'){
-    bodyElement.setAttribute('data-theme', 'dark');
-    themeToggleButton.textContent = 'Light';
-    localStorage.setItem('theme', 'dark');
-  } else {
-    bodyElement.setAttribute('data-theme', 'light');
-    themeToggleButton.textContent = 'Dark';
-    localStorage.setItem('theme', 'light');
-  }
-});
-
-   // ============================
-  // 2) Modal Functionality
+  // 1) Modal Functionality
   // ============================
   const modalOverlays = document.querySelectorAll('.modal-overlay');
 const closeModalButtons = document.querySelectorAll('[data-close]');
@@ -70,7 +45,7 @@ modalOverlays.forEach((overlay) => {
 });
 
   // ============================
-  // 3) Mobile Services Toggle
+  // 2) Mobile Services Toggle
   // ============================
 const servicesToggle = document.getElementById('services-toggle');
 const mobileServicesMenu = document.getElementById('mobile-services-menu');
@@ -82,7 +57,7 @@ if(servicesToggle && mobileServicesMenu) {
 }
 
   // ============================
-  // 4) Register Service Worker (Optional)
+  // 3) Register Service Worker (Optional)
   // ============================
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
