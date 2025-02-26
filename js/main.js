@@ -103,8 +103,8 @@ modalOverlays.forEach((overlay) => {
 const servicesToggle = document.getElementById('services-toggle');
 const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-if (servicesToggle && mobileServicesMenu) {
-  servicesToggle.addEventListener('click', function () {
+if(servicesToggle && mobileServicesMenu) {
+  servicesToggle.addEventListener('click', function(){
     mobileServicesMenu.classList.toggle('active');
   });
 }
@@ -112,15 +112,14 @@ if (servicesToggle && mobileServicesMenu) {
   // ============================
   // 5) Register Service Worker (Optional)
   // ============================
-  if('serviceWorker' in navigator){
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-      .then((registration) => {
-        console.log('Service Worker registered:', registration.scope);
-      })
-      .catch((err) => {
-        console.error('SW registration failed:', err);
-      });
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+    .then((registration) => {
+      console.log('Service Worker registered:', registration.scope);
+    })
+    .catch((err) => {
+      console.error('SW registration failed:', err);
     });
-  }
-});
+  });
+}
