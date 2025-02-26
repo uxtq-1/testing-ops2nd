@@ -58,44 +58,44 @@ languageToggleButton.addEventListener('click', function(){
   // 3) Modal Functionality
   // ============================
   const modalOverlays = document.querySelectorAll('.modal-overlay');
-  const closeModalButtons = document.querySelectorAll('[data-close]');
-  const floatingIcons = document.querySelectorAll('.floating-icon');
+const closeModalButtons = document.querySelectorAll('[data-close]');
+const floatingIcons = document.querySelectorAll('.floating-icon');
 
-  // Open modals
-  floatingIcons.forEach((icon) => {
-    icon.addEventListener('click', function(){
-      const modalId = icon.getAttribute('data-modal');
-      const modalElement = document.getElementById(modalId);
-      if(modalElement){
-        modalElement.classList.add('active');
-        modalElement.focus();
-      }
-    });
+// Open modals
+floatingIcons.forEach((icon) => {
+  icon.addEventListener('click', function(){
+    const modalId = icon.getAttribute('data-modal');
+    const modalElement = document.getElementById(modalId);
+    if(modalElement){
+      modalElement.classList.add('active');
+      modalElement.focus();
+    }
   });
+});
 
-  // Close modals
-  closeModalButtons.forEach((btn) => {
-    btn.addEventListener('click', function(){
-      const parentOverlay = btn.closest('.modal-overlay');
-      if(parentOverlay){
-        parentOverlay.classList.remove('active');
-      }
-    });
+// Close modals
+closeModalButtons.forEach((btn) => {
+  btn.addEventListener('click', function(){
+    const parentOverlay = btn.closest('.modal-overlay');
+    if(parentOverlay){
+      parentOverlay.classList.remove('active');
+    }
   });
+});
 
-  // Close modal by clicking outside or pressing ESC
-  modalOverlays.forEach((overlay) => {
-    overlay.addEventListener('click', function(e){
-      if(e.target === overlay){
-        overlay.classList.remove('active');
-      }
-    });
-    overlay.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        overlay.classList.remove('active');
-      }
-    });
+// Close modal by clicking outside or pressing ESC
+modalOverlays.forEach((overlay) => {
+  overlay.addEventListener('click', function(e){
+    if(e.target === overlay){
+      overlay.classList.remove('active');
+    }
   });
+  overlay.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      overlay.classList.remove('active');
+    }
+  });
+});
 
   // ============================
   // 4) Mobile Services Toggle
