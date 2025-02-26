@@ -17,7 +17,7 @@ body {
 }
 
 /* ==================================================================
-   Header & Navigation (Desktop)
+   Header & Navigation
    ================================================================== */
 header {
   background-color: #9b87f5;
@@ -40,7 +40,7 @@ header nav a {
   font-weight: bold;
 }
 
-/* Toggle Button Container */
+/* Toggle Button Container (Desktop) */
 .toggle-container {
   position: absolute;
   top: 10px;
@@ -183,7 +183,7 @@ footer {
    Modal Overlay & Content
    ================================================================== */
 .modal-overlay {
-  display: none;
+  display: none; /* Hidden by default */
   position: fixed;
   inset: 0;
   background-color: rgba(0,0,0,0.7);
@@ -205,11 +205,12 @@ footer {
   max-height: 90vh;
   display: flex;
   flex-direction: column;
+  position: relative;
   overflow: hidden;
 }
 
 /* ==================================================================
-   Modal Header, Body & Footer
+   Modal Header (Title and Close Button)
    ================================================================== */
 .modal-header {
   display: flex;
@@ -238,12 +239,16 @@ footer {
   color: #ddd;
 }
 
+/* ==================================================================
+   Modal Body & Form Layout (Grid: Table-like)
+   ================================================================== */
 .modal-body {
   padding: 1rem;
   flex: 1;
   overflow-y: auto;
 }
 
+/* Use CSS Grid for a two-column layout on big screens */
 .modal-body form {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -267,6 +272,9 @@ footer {
   border-radius: 5px;
 }
 
+/* ==================================================================
+   Modal Footer: Submit Button Aligned Right
+   ================================================================== */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
@@ -334,7 +342,7 @@ body[data-theme="dark"] .modal-content form {
 }
 
 /* ==================================================================
-   Hide Mobile Nav & Menu (Desktop-First)
+   Hide Mobile Nav & Menu by default (Desktop-First)
    ================================================================== */
 .mobile-nav,
 .mobile-services-menu {
