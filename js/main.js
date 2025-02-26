@@ -26,36 +26,8 @@ themeToggleButton.addEventListener('click', function(){
   }
 });
 
-  // ============================
-  // 2) Language Toggle
-  // ============================
-  const languageToggleButton = document.getElementById('language-toggle');
-let currentLanguage = localStorage.getItem('language') || 'en';
-
-document.body.setAttribute('lang', currentLanguage);
-languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-
-function updateLanguage(){
-  const translationElements = document.querySelectorAll('[data-en]');
-  translationElements.forEach((element) => {
-    element.textContent = (currentLanguage === 'en')
-      ? element.getAttribute('data-en')
-      : element.getAttribute('data-es');
-  });
-}
-
-updateLanguage();
-
-languageToggleButton.addEventListener('click', function(){
-  currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-  languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-  document.body.setAttribute('lang', currentLanguage);
-  updateLanguage();
-  localStorage.setItem('language', currentLanguage);
-});
-
-  // ============================
-  // 3) Modal Functionality
+   // ============================
+  // 2) Modal Functionality
   // ============================
   const modalOverlays = document.querySelectorAll('.modal-overlay');
 const closeModalButtons = document.querySelectorAll('[data-close]');
@@ -98,7 +70,7 @@ modalOverlays.forEach((overlay) => {
 });
 
   // ============================
-  // 4) Mobile Services Toggle
+  // 3) Mobile Services Toggle
   // ============================
 const servicesToggle = document.getElementById('services-toggle');
 const mobileServicesMenu = document.getElementById('mobile-services-menu');
@@ -110,7 +82,7 @@ if(servicesToggle && mobileServicesMenu) {
 }
 
   // ============================
-  // 5) Register Service Worker (Optional)
+  // 4) Register Service Worker (Optional)
   // ============================
 if('serviceWorker' in navigator){
   window.addEventListener('load', () => {
