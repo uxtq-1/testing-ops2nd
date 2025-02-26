@@ -104,21 +104,9 @@ console.log("DOM fully loaded and parsed.");
       }
     });
   });
-  // ============================
-  // 4) Mobile Nav Toggles: mobile-nav-toggle
-  // ============================
-document.addEventListener("DOMContentLoaded", function() {
-  const mobileNavToggle = document.getElementById("mobile-nav-toggle");
-  const mobileNav = document.querySelector(".mobile-nav");
-
-  // Toggle the mobile navigation
-  mobileNavToggle.addEventListener("click", function() {
-    mobileNav.classList.toggle("open");  // Add or remove the 'open' class to expand/collapse the nav
-  });
-});
   
   // ============================
-  //  Mobile Services Toggle: mobile-services-menu
+  //  4) Mobile Services Toggle: mobile-services-menu
   // ============================
   const servicesToggle = document.getElementById('services-toggle');
   const mobileServicesMenu = document.getElementById('mobile-services-menu');
