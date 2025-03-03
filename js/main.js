@@ -1,132 +1,205 @@
-document.addEventListener('DOMContentLoaded', function() {
+/*****************************************************
+ * main.js
+ * Handles language switching, side menu toggles,
+ * services sub-menu, modals, form submissions, and
+ * theme toggles (desktop & mobile).
+ *****************************************************/
+document.addEventListener("DOMContentLoaded", () => {
 
-  // ============================
-  // 1) Theme Toggle
-  // ============================
-  const themeToggleButton = document.getElementById('mobile-theme-toggle'); // Updated to new mobile toggle ID
-  const bodyElement = document.body;
-  const savedTheme = localStorage.getItem('theme') || 'light';
+  /* ================================================================
+     1) LANGUAGE TOGGLE (Desktop & Mobile)
+     ================================================================= */
+  let currentLanguage = localStorage.getItem("language") || "en";
 
-  // Initialize theme
-  bodyElement.setAttribute('data-theme', savedTheme);
-  if (themeToggleButton) {
-    // Display initial button text (optional)
-    themeToggleButton.textContent = savedTheme === 'light' ? 'Dark' : 'Light';
+  const langToggleDesktop = document.getElementById("language-toggle-desktop");
+  const langToggleMobile  = document.getElementById("language-toggle-mobile");
 
-    themeToggleButton.addEventListener('click', function() {
-      const currentTheme = bodyElement.getAttribute('data-theme');
-      if (currentTheme === 'light') {
-        bodyElement.setAttribute('data-theme', 'dark');
-        themeToggleButton.textContent = 'Light';
-        localStorage.setItem('theme', 'dark');
-      } else {
-        bodyElement.setAttribute('data-theme', 'light');
-        themeToggleButton.textContent = 'Dark';
-        localStorage.setItem('theme', 'light');
-      }
+  // Helper: set text to either data-en or data-es
+  function updateLanguage(lang) {
+    const translatableElements = document.querySelectorAll("[data-en]");
+    translatableElements.forEach((el) => {
+      el.textContent = (lang === "en")
+        ? el.getAttribute("data-en")
+        : el.getAttribute("data-es");
     });
   }
 
-  // ============================
-  // 2) Language Toggle
-  // ============================
-  const languageToggleButton = document.getElementById('mobile-language-toggle'); // Updated to new mobile toggle ID
-  let currentLanguage = localStorage.getItem('language') || 'en';
+  // Initialize language on load
+  document.body.setAttribute("lang", currentLanguage);
+  updateLanguage(currentLanguage);
 
-  // Set initial language
-  document.body.setAttribute('lang', currentLanguage);
-  if (languageToggleButton) {
-    // Button label
-    languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-
-    // Helper function to translate
-    function updateLanguage() {
-      const translationElements = document.querySelectorAll('[data-en]');
-      translationElements.forEach((element) => {
-        element.textContent = (currentLanguage === 'en')
-          ? element.getAttribute('data-en')
-          : element.getAttribute('data-es');
-      });
+  // Set initial button labels
+  function setLanguageButtonLabels() {
+    if (langToggleDesktop) {
+      langToggleDesktop.textContent = (currentLanguage === "en") ? "ES" : "EN";
     }
+    if (langToggleMobile) {
+      // If you have a <span> inside, target that; otherwise just do .textContent
+      const mobileSpan = langToggleMobile.querySelector("span") || langToggleMobile;
+      mobileSpan.textContent = (currentLanguage === "en") ? "ES" : "EN";
+    }
+  }
+  setLanguageButtonLabels();
 
-    updateLanguage();
+  // Toggle function
+  function toggleLanguage() {
+    currentLanguage = (currentLanguage === "en") ? "es" : "en";
+    localStorage.setItem("language", currentLanguage);
+    document.body.setAttribute("lang", currentLanguage);
+    updateLanguage(currentLanguage);
+    setLanguageButtonLabels();
+  }
 
-    languageToggleButton.addEventListener('click', function() {
-      currentLanguage = (currentLanguage === 'en') ? 'es' : 'en';
-      languageToggleButton.textContent = (currentLanguage === 'en') ? 'ES' : 'EN';
-      document.body.setAttribute('lang', currentLanguage);
-      updateLanguage();
-      localStorage.setItem('language', currentLanguage);
+  // Event listeners for language toggles
+  if (langToggleDesktop) {
+    langToggleDesktop.addEventListener("click", toggleLanguage);
+  }
+  if (langToggleMobile) {
+    langToggleMobile.addEventListener("click", toggleLanguage);
+  }
+
+
+  /* ================================================================
+     2) THEME TOGGLE (Desktop & Mobile)
+     ================================================================= */
+  const themeToggleDesktop = document.getElementById("theme-toggle-desktop");
+  const themeToggleMobile  = document.getElementById("theme-toggle-mobile");
+  const bodyElement = document.body;
+  const savedTheme = localStorage.getItem("theme") || "light";
+
+  // Apply the saved theme on load
+  bodyElement.setAttribute("data-theme", savedTheme);
+
+  // Helper to set up a single theme button
+  function setupThemeToggle(button) {
+    if (!button) return;
+
+    // Set initial button text based on savedTheme
+    button.textContent = (savedTheme === "light") ? "Dark" : "Light";
+
+    button.addEventListener("click", () => {
+      const currentTheme = bodyElement.getAttribute("data-theme");
+      if (currentTheme === "light") {
+        bodyElement.setAttribute("data-theme", "dark");
+        button.textContent = "Light"; // Next possible choice
+        localStorage.setItem("theme", "dark");
+      } else {
+        bodyElement.setAttribute("data-theme", "light");
+        button.textContent = "Dark"; // Next possible choice
+        localStorage.setItem("theme", "light");
+      }
     });
   }
 
-  // ============================
-  // 3) Modal Functionality
-  // ============================
+  // Initialize desktop & mobile theme toggles
+  setupThemeToggle(themeToggleDesktop);
+  setupThemeToggle(themeToggleMobile);
+
+  /* ==================================================================
+     3) Right-Side Main Menu: Open/Close
+     ================================================================== */
+  const menuOpenBtn = document.getElementById('menu-open');
+  const menuCloseBtn = document.getElementById('menu-close');
+  const rightSideMenu = document.getElementById('rightSideMenu');
+
+  if (menuOpenBtn && menuCloseBtn && rightSideMenu) {
+    menuOpenBtn.addEventListener('click', () => {
+      rightSideMenu.classList.add('open');
+    });
+    menuCloseBtn.addEventListener('click', () => {
+      rightSideMenu.classList.remove('open');
+      if (servicesSubMenu) {
+        servicesSubMenu.classList.remove('open');
+      }
+    });
+  }
+
+  /* ==================================================================
+     4) Services Sub-Menu: Slide Up
+     ================================================================== */
+  const servicesTrigger = document.querySelector('.services-trigger button');
+  const servicesSubMenu = document.getElementById('servicesSubMenu');
+
+  if (servicesTrigger && servicesSubMenu) {
+    servicesTrigger.addEventListener('click', (e) => {
+      e.stopPropagation(); 
+      servicesSubMenu.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (evt) => {
+      const clickInsideTrigger = servicesTrigger.contains(evt.target);
+      const clickInsideSubMenu = servicesSubMenu.contains(evt.target);
+      if (!clickInsideTrigger && !clickInsideSubMenu) {
+        servicesSubMenu.classList.remove('open');
+      }
+    });
+  }
+
+
+  /* ==================================================================
+     5) Modals (Join Us & Contact Us)
+     ================================================================== */
   const modalOverlays = document.querySelectorAll('.modal-overlay');
-  const closeModalButtons = document.querySelectorAll('[data-close]');
   const floatingIcons = document.querySelectorAll('.floating-icon');
+  const closeModalButtons = document.querySelectorAll('[data-close]');
 
-  // Open modals
-  floatingIcons.forEach((icon) => {
-    icon.addEventListener('click', function() {
+  // Open modal on floating icon click
+  floatingIcons.forEach(icon => {
+    icon.addEventListener('click', () => {
       const modalId = icon.getAttribute('data-modal');
-      const modalElement = document.getElementById(modalId);
-      if (modalElement) {
-        modalElement.classList.add('active');
-        modalElement.focus();
+      const targetModal = document.getElementById(modalId);
+      if (targetModal) {
+        targetModal.classList.add('active');
       }
     });
   });
 
-  // Close modals
-  closeModalButtons.forEach((btn) => {
-    btn.addEventListener('click', function() {
-      const parentOverlay = btn.closest('.modal-overlay');
-      if (parentOverlay) {
-        parentOverlay.classList.remove('active');
+  // Close modal via close button
+  closeModalButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parentModal = btn.closest('.modal-overlay');
+      if (parentModal) {
+        parentModal.classList.remove('active');
       }
     });
   });
 
-  // Close modal by clicking outside or pressing ESC
-  modalOverlays.forEach((overlay) => {
-    overlay.addEventListener('click', function(e) {
+  // Close modal on clicking outside or pressing ESC
+  modalOverlays.forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
       if (e.target === overlay) {
         overlay.classList.remove('active');
       }
     });
-    overlay.addEventListener('keydown', function(e) {
+    overlay.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         overlay.classList.remove('active');
       }
     });
   });
 
-  // ============================
-  // 4) Mobile Services Toggle
-  // ============================
-  const servicesToggle = document.getElementById('mobile-services-toggle'); // Updated to new mobile services toggle ID
-  const mobileServicesMenu = document.getElementById('mobile-services-menu');
 
-  if (servicesToggle && mobileServicesMenu) {
-    servicesToggle.addEventListener('click', function() {
-      mobileServicesMenu.classList.toggle('active');
+  /* ==================================================================
+     6) Form Submissions: Alert + Reset
+     ================================================================== */
+  const joinForm = document.getElementById('join-form');
+  if (joinForm) {
+    joinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for joining us! We have received your details.');
+      joinForm.reset();
+      document.getElementById('join-modal').classList.remove('active');
     });
   }
 
-  // ============================
-  // 5) Register Service Worker (Optional)
-  // ============================
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then((registration) => {
-          console.log('Service Worker registered:', registration.scope);
-        })
-        .catch((err) => {
-          console.error('SW registration failed:', err);
-        });
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you for contacting us! We will get back to you soon.');
+      contactForm.reset();
+      document.getElementById('contact-modal').classList.remove('active');
     });
   }
+
 });
