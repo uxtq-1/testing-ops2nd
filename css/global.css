@@ -1,3 +1,16 @@
+/* =========================================================
+   All mobile overrides for screens ≤ 768px
+   ========================================================= */
+@media screen and (max-width: 768px) {
+
+  /* Hide desktop nav + toggles on mobile */
+  header nav ul {
+    display: none;
+  }
+  .toggle-container {
+    display: none;
+  }
+
 /* ==================================================================
    Global Reset & Basic Body Styles
    ================================================================== */
