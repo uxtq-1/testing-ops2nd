@@ -70,6 +70,14 @@
     });
   }
 
+  // Dynamically load contact-form.css only on contact.html pages
+if (window.location.pathname.endsWith('/contact.html') || window.location.pathname === '/contact') {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'css/contact-form.css';
+  document.head.appendChild(link);
+}
+
   // Mobile services menu
   if (selectors.mobileServicesToggle && selectors.mobileServicesMenu) {
     selectors.mobileServicesToggle.addEventListener('click', () => {
