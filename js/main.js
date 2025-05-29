@@ -1,205 +1,221 @@
-/*****************************************************
- * main.js
- * Handles language switching, side menu toggles,
- * services sub-menu, modals, form submissions, and
- * theme toggles (desktop & mobile).
- *****************************************************/
-document.addEventListener("DOMContentLoaded", () => {
+/(() => {
+  'use strict';
 
-  /* ================================================================
-     1) LANGUAGE TOGGLE (Desktop & Mobile)
-     ================================================================= */
-  let currentLanguage = localStorage.getItem("language") || "en";
+  const langToggleDesktop = document.getElementById('language-toggle-desktop');
+  const langToggleMobile = document.getElementById('language-toggle-mobile');
+  const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+  const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+  const mobileServicesToggle = document.getElementById('mobile-services-toggle');
+  const mobileServicesMenu = document.getElementById('mobile-services-menu');
+  const form = document.getElementById('contact-form');
+  const addressContainer = document.getElementById('address-container');
+  const emailContainer = document.getElementById('email-container');
+  const addAddressBtn = document.getElementById('add-address');
+  const addEmailBtn = document.getElementById('add-email');
+  const feedbackMessage = document.getElementById('feedback-message');
+  const encryptingMsg = document.getElementById('encrypting-msg');
 
-  const langToggleDesktop = document.getElementById("language-toggle-desktop");
-  const langToggleMobile  = document.getElementById("language-toggle-mobile");
-
-  // Helper: set text to either data-en or data-es
-  function updateLanguage(lang) {
-    const translatableElements = document.querySelectorAll("[data-en]");
-    translatableElements.forEach((el) => {
-      el.textContent = (lang === "en")
-        ? el.getAttribute("data-en")
-        : el.getAttribute("data-es");
+  function setLanguageTexts(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = lang === 'es' ? el.getAttribute('data-es') : el.getAttribute('data-en');
     });
   }
 
-  // Initialize language on load
-  document.body.setAttribute("lang", currentLanguage);
-  updateLanguage(currentLanguage);
+  let currentLang = localStorage.getItem('language') || 'en';
+  setLanguageTexts(currentLang);
 
-  // Set initial button labels
-  function setLanguageButtonLabels() {
-    if (langToggleDesktop) {
-      langToggleDesktop.textContent = (currentLanguage === "en") ? "ES" : "EN";
-    }
-    if (langToggleMobile) {
-      // If you have a <span> inside, target that; otherwise just do .textContent
-      const mobileSpan = langToggleMobile.querySelector("span") || langToggleMobile;
-      mobileSpan.textContent = (currentLanguage === "en") ? "ES" : "EN";
-    }
-  }
-  setLanguageButtonLabels();
-
-  // Toggle function
   function toggleLanguage() {
-    currentLanguage = (currentLanguage === "en") ? "es" : "en";
-    localStorage.setItem("language", currentLanguage);
-    document.body.setAttribute("lang", currentLanguage);
-    updateLanguage(currentLanguage);
-    setLanguageButtonLabels();
+    currentLang = currentLang === 'en' ? 'es' : 'en';
+    localStorage.setItem('language', currentLang);
+    setLanguageTexts(currentLang);
   }
 
-  // Event listeners for language toggles
-  if (langToggleDesktop) {
-    langToggleDesktop.addEventListener("click", toggleLanguage);
+  langToggleDesktop.addEventListener('click', toggleLanguage);
+  langToggleMobile.addEventListener('click', toggleLanguage);
+
+  function setTheme(theme) {
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+      themeToggleDesktop.textContent = 'Dark';
+      themeToggleMobile.textContent = 'Dark';
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.body.classList.remove('light-theme');
+      themeToggleDesktop.textContent = 'Light';
+      themeToggleMobile.textContent = 'Light';
+      localStorage.setItem('theme', 'dark');
+    }
   }
-  if (langToggleMobile) {
-    langToggleMobile.addEventListener("click", toggleLanguage);
-  }
 
+  let currentTheme = localStorage.getItem('theme') || 'dark';
+  setTheme(currentTheme);
 
-  /* ================================================================
-     2) THEME TOGGLE (Desktop & Mobile)
-     ================================================================= */
-  const themeToggleDesktop = document.getElementById("theme-toggle-desktop");
-  const themeToggleMobile  = document.getElementById("theme-toggle-mobile");
-  const bodyElement = document.body;
-  const savedTheme = localStorage.getItem("theme") || "light";
+  themeToggleDesktop.addEventListener('click', () => {
+    setTheme(currentTheme === 'light' ? 'dark' : 'light');
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  });
 
-  // Apply the saved theme on load
-  bodyElement.setAttribute("data-theme", savedTheme);
+  themeToggleMobile.addEventListener('click', () => {
+    setTheme(currentTheme === 'light' ? 'dark' : 'light');
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  });
 
-  // Helper to set up a single theme button
-  function setupThemeToggle(button) {
-    if (!button) return;
+  mobileServicesToggle.addEventListener('click', () => {
+    const isExpanded = mobileServicesToggle.getAttribute('aria-expanded') === 'true';
+    mobileServicesToggle.setAttribute('aria-expanded', String(!isExpanded));
+    mobileServicesMenu.hidden = isExpanded;
+  });
 
-    // Set initial button text based on savedTheme
-    button.textContent = (savedTheme === "light") ? "Dark" : "Light";
-
-    button.addEventListener("click", () => {
-      const currentTheme = bodyElement.getAttribute("data-theme");
-      if (currentTheme === "light") {
-        bodyElement.setAttribute("data-theme", "dark");
-        button.textContent = "Light"; // Next possible choice
-        localStorage.setItem("theme", "dark");
+  function updateFloatingLabels() {
+    form.querySelectorAll('input, textarea, select').forEach(input => {
+      if (input.value.trim() !== '') {
+        input.classList.add('has-value');
       } else {
-        bodyElement.setAttribute("data-theme", "light");
-        button.textContent = "Dark"; // Next possible choice
-        localStorage.setItem("theme", "light");
+        input.classList.remove('has-value');
       }
     });
   }
 
-  // Initialize desktop & mobile theme toggles
-  setupThemeToggle(themeToggleDesktop);
-  setupThemeToggle(themeToggleMobile);
-
-  /* ==================================================================
-     3) Right-Side Main Menu: Open/Close
-     ================================================================== */
-  const menuOpenBtn = document.getElementById('menu-open');
-  const menuCloseBtn = document.getElementById('menu-close');
-  const rightSideMenu = document.getElementById('rightSideMenu');
-
-  if (menuOpenBtn && menuCloseBtn && rightSideMenu) {
-    menuOpenBtn.addEventListener('click', () => {
-      rightSideMenu.classList.add('open');
-    });
-    menuCloseBtn.addEventListener('click', () => {
-      rightSideMenu.classList.remove('open');
-      if (servicesSubMenu) {
-        servicesSubMenu.classList.remove('open');
-      }
-    });
-  }
-
-  /* ==================================================================
-     4) Services Sub-Menu: Slide Up
-     ================================================================== */
-  const servicesTrigger = document.querySelector('.services-trigger button');
-  const servicesSubMenu = document.getElementById('servicesSubMenu');
-
-  if (servicesTrigger && servicesSubMenu) {
-    servicesTrigger.addEventListener('click', (e) => {
-      e.stopPropagation(); 
-      servicesSubMenu.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (evt) => {
-      const clickInsideTrigger = servicesTrigger.contains(evt.target);
-      const clickInsideSubMenu = servicesSubMenu.contains(evt.target);
-      if (!clickInsideTrigger && !clickInsideSubMenu) {
-        servicesSubMenu.classList.remove('open');
-      }
-    });
-  }
-
-
-  /* ==================================================================
-     5) Modals (Join Us & Contact Us)
-     ================================================================== */
-  const modalOverlays = document.querySelectorAll('.modal-overlay');
-  const floatingIcons = document.querySelectorAll('.floating-icon');
-  const closeModalButtons = document.querySelectorAll('[data-close]');
-
-  // Open modal on floating icon click
-  floatingIcons.forEach(icon => {
-    icon.addEventListener('click', () => {
-      const modalId = icon.getAttribute('data-modal');
-      const targetModal = document.getElementById(modalId);
-      if (targetModal) {
-        targetModal.classList.add('active');
-      }
-    });
+  updateFloatingLabels();
+  form.querySelectorAll('input, textarea, select').forEach(input => {
+    input.addEventListener('input', updateFloatingLabels);
   });
 
-  // Close modal via close button
-  closeModalButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const parentModal = btn.closest('.modal-overlay');
-      if (parentModal) {
-        parentModal.classList.remove('active');
-      }
-    });
+  addAddressBtn.addEventListener('click', () => {
+    const newGroup = document.createElement('div');
+    newGroup.className = 'form-group address-group';
+    newGroup.style.position = 'relative';
+
+    const newInput = document.createElement('input');
+    newInput.type = 'text';
+    newInput.name = 'contact-address[]';
+    newInput.placeholder = ' ';
+    newInput.required = true;
+
+    const newLabel = document.createElement('label');
+    newLabel.textContent = currentLang === 'es' ? 'Ingrese su dirección' : 'Place your address';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'remove-address';
+    removeBtn.setAttribute('aria-label', currentLang === 'es' ? 'Eliminar campo de dirección' : 'Remove address field');
+    removeBtn.title = removeBtn.getAttribute('aria-label');
+    removeBtn.style.position = 'absolute';
+    removeBtn.style.top = '8px';
+    removeBtn.style.right = '8px';
+    removeBtn.style.background = 'none';
+    removeBtn.style.border = 'none';
+    removeBtn.style.color = '#a259ff';
+    removeBtn.style.fontSize = '1.2rem';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.textContent = '×';
+
+    removeBtn.addEventListener('click', () => newGroup.remove());
+
+    newGroup.appendChild(newInput);
+    newGroup.appendChild(newLabel);
+    newGroup.appendChild(removeBtn);
+    addressContainer.appendChild(newGroup);
   });
 
-  // Close modal on clicking outside or pressing ESC
-  modalOverlays.forEach(overlay => {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) {
-        overlay.classList.remove('active');
-      }
-    });
-    overlay.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        overlay.classList.remove('active');
-      }
-    });
+  addEmailBtn.addEventListener('click', () => {
+    const newGroup = document.createElement('div');
+    newGroup.className = 'form-group email-group';
+    newGroup.style.position = 'relative';
+
+    const newInput = document.createElement('input');
+    newInput.type = 'email';
+    newInput.name = 'contact-email[]';
+    newInput.placeholder = ' ';
+    newInput.required = true;
+
+    const newLabel = document.createElement('label');
+    newLabel.textContent = currentLang === 'es' ? 'Ingrese su correo' : 'Place your email';
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'remove-email';
+    removeBtn.setAttribute('aria-label', currentLang === 'es' ? 'Eliminar campo de correo' : 'Remove email field');
+    removeBtn.title = removeBtn.getAttribute('aria-label');
+    removeBtn.style.position = 'absolute';
+    removeBtn.style.top = '8px';
+    removeBtn.style.right = '8px';
+    removeBtn.style.background = 'none';
+    removeBtn.style.border = 'none';
+    removeBtn.style.color = '#a259ff';
+    removeBtn.style.fontSize = '1.2rem';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.textContent = '×';
+
+    removeBtn.addEventListener('click', () => newGroup.remove());
+
+    newGroup.appendChild(newInput);
+    newGroup.appendChild(newLabel);
+    newGroup.appendChild(removeBtn);
+    emailContainer.appendChild(newGroup);
   });
 
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  /* ==================================================================
-     6) Form Submissions: Alert + Reset
-     ================================================================== */
-  const joinForm = document.getElementById('join-form');
-  if (joinForm) {
-    joinForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thank you for joining us! We have received your details.');
-      joinForm.reset();
-      document.getElementById('join-modal').classList.remove('active');
-    });
+    if (!form.checkValidity()) {
+      showFeedback(currentLang === 'es' ? 'Por favor, complete todos los campos obligatorios correctamente.' : 'Please fill out all required fields correctly.', true);
+      return;
+    }
+
+    if (form['contact-hp'].value) return;
+
+    encryptingMsg.setAttribute('aria-hidden', 'false');
+    encryptingMsg.classList.add('show');
+
+    Array.from(form.elements).forEach(el => el.disabled = true);
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!response.ok) throw new Error('Network response not ok');
+
+      const result = await response.json();
+
+      if (result.success) {
+        showFeedback(currentLang === 'es'
+          ? 'Gracias por su consideración y tiempo. Nos pondremos en contacto con usted lo antes posible. Su solicitud y pregunta se tratan con urgencia. ¡Que tenga un día productivo pero excepcional!'
+          : 'Thank you for your consideration and time. We will contact you as soon as possible. Your request and question are treated with urgency. Have a productive but outstanding day!', false);
+
+        form.reset();
+        form.style.display = 'none';
+
+        setTimeout(() => {
+          encryptingMsg.classList.remove('show');
+          encryptingMsg.setAttribute('aria-hidden', 'true');
+        }, 2500);
+
+        setTimeout(() => {
+          feedbackMessage.classList.remove('show');
+        }, 5000);
+      } else {
+        throw new Error(result.message || 'Submission failed');
+      }
+    } catch (error) {
+      showFeedback(currentLang === 'es'
+        ? 'Ocurrió un error durante el envío. Por favor, intente nuevamente más tarde.'
+        : 'An error occurred during submission. Please try again later.', true);
+
+      Array.from(form.elements).forEach(el => el.disabled = false);
+      encryptingMsg.classList.remove('show');
+      encryptingMsg.setAttribute('aria-hidden', 'true');
+    }
+  });
+
+  function showFeedback(message, isError = false) {
+    feedbackMessage.textContent = message;
+    feedbackMessage.style.color = isError ? '#e55353' : '#a259ff';
+    feedbackMessage.classList.add('show');
   }
-
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Thank you for contacting us! We will get back to you soon.');
-      contactForm.reset();
-      document.getElementById('contact-modal').classList.remove('active');
-    });
-  }
-
-});
+})();
