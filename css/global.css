@@ -1,5 +1,6 @@
-/* global.css */
+/* Contact Us Base Styles */
 
+/* Root & Body */
 html, body {
   margin: 0; 
   padding: 0; 
@@ -14,17 +15,7 @@ html, body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-body.light-theme {
-  --bg-color: #f4f4f4;
-  --text-color: #222;
-}
-
-body.light-theme #secure-content {
-  background: #fff;
-  box-shadow: 0 0 15px rgba(162, 89, 255, 0.3);
-  color: #222;
-}
-
+/* Secure Content Container */
 #secure-content {
   width: 100%;
   max-width: 520px;
@@ -56,6 +47,7 @@ body.light-theme #secure-content {
   100% { border-image: linear-gradient(45deg, transparent 0%, #a259ff 30%, #a259ff 70%, transparent 100%) 1; }
 }
 
+/* Heading */
 h1 {
   text-align: center;
   margin-bottom: 0.2rem;
@@ -64,6 +56,7 @@ h1 {
   user-select: none;
 }
 
+/* Description Paragraph */
 #description {
   text-align: center;
   margin-bottom: 2rem;
@@ -71,6 +64,7 @@ h1 {
   font-size: 1.05rem;
 }
 
+/* Form General */
 form {
   display: flex;
   flex-direction: column;
@@ -80,12 +74,14 @@ form {
   box-sizing: border-box;
 }
 
+/* Form Group */
 .form-group {
   position: relative;
   width: 100%;
   margin: 0 auto;
 }
 
+/* Inputs and Textareas */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -119,6 +115,7 @@ input:focus, textarea:focus, select:focus {
   background: rgba(162, 89, 255, 0.15);
 }
 
+/* Floating Labels */
 label {
   position: absolute;
   left: 14px;
@@ -146,6 +143,7 @@ select:not([value=""]) + label {
   background: #121212;
 }
 
+/* Submit Button */
 .submit-button {
   background-color: #a259ff;
   color: white;
@@ -164,6 +162,7 @@ select:not([value=""]) + label {
   outline: none;
 }
 
+/* Feedback Message */
 #feedback-message {
   margin-top: 1rem;
   text-align: center;
@@ -179,6 +178,7 @@ select:not([value=""]) + label {
   opacity: 1;
 }
 
+/* Encrypting Message */
 #encrypting-msg {
   position: fixed;
   bottom: 12px;
@@ -203,6 +203,7 @@ select:not([value=""]) + label {
   pointer-events: auto;
 }
 
+/* Spinner inside Encrypting message */
 #spinner {
   border: 3px solid #a259ff;
   border-top: 3px solid transparent;
@@ -217,7 +218,7 @@ select:not([value=""]) + label {
   100% {transform: rotate(360deg);}
 }
 
-/* Floating icons styles */
+/* Floating Icons */
 .floating-icons {
   position: fixed;
   bottom: 20px;
@@ -243,4 +244,16 @@ select:not([value=""]) + label {
 .floating-icon:hover {
   background-color: #7e3ed0;
   transform: scale(1.1);
+}
+
+/* Light Theme Overrides */
+body.light-theme {
+  --bg-color: #f4f4f4;
+  --text-color: #222;
+}
+
+body.light-theme #secure-content {
+  background: #fff;
+  box-shadow: 0 0 15px rgba(162, 89, 255, 0.3);
+  color: #222;
 }
