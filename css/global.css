@@ -1,352 +1,246 @@
-/* =========================================================
-   For screens ≥ 769px, hide mobile nav (redundant but safe)
-   ========================================================= */
-@media screen and (min-width: 769px) {
-  .mobile-nav,
-  .mobile-services-menu {
-    display: none;
-  }
-}
+/* global.css */
 
-/* ==================================================================
-   Global Reset & Basic Body Styles
-   ================================================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-/* ==================================================================
-   Header & Navigation
-   ================================================================== */
-header {
-  background-color: #9b87f5;
-  color: white;
-  padding: 15px 20px;
-  text-align: center;
-  position: relative;
-}
-
-header nav ul {
-  list-style: none;
+html, body {
+  margin: 0; 
+  padding: 0; 
+  height: 100%;
+  background: var(--bg-color, #121212);
+  color: var(--text-color, #eee);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header nav a {
-  text-decoration: none;
-  color: white;
-  font-weight: bold;
+body.light-theme {
+  --bg-color: #f4f4f4;
+  --text-color: #222;
 }
 
-/* Toggle Button Container (Desktop) */
-.toggle-container {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 10px;
+body.light-theme #secure-content {
+  background: #fff;
+  box-shadow: 0 0 15px rgba(162, 89, 255, 0.3);
+  color: #222;
 }
 
-.toggle-container button {
-  background-color: #7e69ab;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  cursor: pointer;
-  border-radius: 20px;
-  transition: background-color 0.3s;
-}
-
-.toggle-container button:hover {
-  background-color: #9b87f5;
-}
-
-/* ==================================================================
-   Hero Section
-   ================================================================== */
-.hero {
-  text-align: center;
-  padding: 4rem 1rem;
-}
-
-.hero h2 {
-  font-size: 2.5rem;
-  color: #9b87f5;
-}
-
-.hero p {
-  font-size: 1.3rem;
-  margin-top: 1rem;
-  color: #333;
-}
-
-.hero-image {
+#secure-content {
   width: 100%;
-  height: auto;
-  margin-top: 2rem;
-  border-radius: 10px;
-}
-
-/* ==================================================================
-   Services Section
-   ================================================================== */
-.services {
-  padding: 2rem;
-  background-color: #f1f0fb;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-}
-
-.service-item {
-  background: transparent;
-  border: 2px solid currentColor;
-  border-radius: 8px;
-  width: calc(25% - 1rem);
-  text-align: center;
-  padding: 1.5rem;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  color: inherit;
-}
-
-.service-item h3 {
-  margin-bottom: 1rem;
-  color: #9b87f5;
-}
-
-.service-item p {
-  margin-bottom: 1rem;
-}
-
-.service-item .btn {
-  background-color: #9b87f5;
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  text-decoration: none;
-  display: inline-block;
-  transition: background-color 0.3s;
-}
-
-.service-item .btn:hover {
-  background-color: #7e69ab;
-}
-
-/* ==================================================================
-   Footer
-   ================================================================== */
-footer {
-  background-color: #7e69ab;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-/* ==================================================================
-   Floating Icons
-   ================================================================== */
-.floating-icons {
-  position: fixed;
-  bottom: 110px;
-  right: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  z-index: 2000;
-}
-
-.floating-icon {
-  background-color: #9b87f5;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.floating-icon:hover {
-  background-color: #7e69ab;
-  transform: scale(1.1);
-}
-
-/* ==================================================================
-   Modal Overlay & Content
-   ================================================================== */
-.modal-overlay {
-  display: none; /* Hidden by default */
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
-  flex-direction: column;
-}
-
-.modal-overlay.active {
-  display: flex;
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
+  max-width: 520px;
+  padding: 2rem 1.5rem;
+  background: rgba(18,18,18,0.95);
+  border-radius: 16px;
   position: relative;
-  overflow: hidden;
-}
-
-/* ==================================================================
-   Modal Header (Title and Close Button)
-   ================================================================== */
-.modal-header {
+  box-shadow: 0 0 20px rgba(162, 89, 255, 0.3);
+  border: 2px solid transparent;
+  transition: border 0.4s ease;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  background-color: #9b87f5;
-  padding: 1rem;
-  color: #fff;
-}
-
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.close-modal {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close-modal:hover {
-  color: #ddd;
-}
-
-/* ==================================================================
-   Modal Body & Form Layout (Grid: Table-like)
-   ================================================================== */
-.modal-body {
-  padding: 1rem;
-  flex: 1;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 80vh;
+  max-height: 90vh;
   overflow-y: auto;
 }
 
-/* Use CSS Grid for a two-column layout on big screens */
-.modal-body form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+#secure-content.focused {
+  border-image: linear-gradient(45deg, #a259ff 0%, transparent 30%, transparent 70%, #a259ff 100%) 1;
+  animation: shineRun 1.5s linear infinite;
 }
 
-.form-cell {
+@keyframes shineRun {
+  0% { border-image: linear-gradient(45deg, #a259ff 0%, transparent 30%, transparent 70%, #a259ff 100%) 1; }
+  100% { border-image: linear-gradient(45deg, transparent 0%, #a259ff 30%, #a259ff 70%, transparent 100%) 1; }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+  font-size: 2rem;
+  user-select: none;
+}
+
+#description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #aaa;
+  font-size: 1.05rem;
+}
+
+form {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
 }
 
-.form-cell label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+.form-group {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.form-cell input,
-.form-cell textarea {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px;
+  background: rgba(128, 0, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #eee;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: vertical;
+  min-height: 44px;
+  font-family: inherit;
+  box-sizing: border-box;
 }
 
-/* ==================================================================
-   Modal Footer: Submit Button Aligned Right
-   ================================================================== */
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem;
-  border-top: 1px solid #eee;
+textarea {
+  min-height: 120px;
+  max-height: 500px;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: #a259ff;
+  box-shadow: 0 0 8px 2px rgba(162, 89, 255, 0.8);
+  background: rgba(162, 89, 255, 0.15);
+}
+
+label {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  color: #bbb;
+  font-size: 1rem;
+  pointer-events: none;
+  padding: 0 6px;
+  transition: all 0.3s ease;
+  user-select: none;
+  border-radius: 4px;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label,
+textarea:focus + label,
+textarea:not(:placeholder-shown) + label,
+select:focus + label,
+select:not([value=""]) + label {
+  top: -12px;
+  left: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #a259ff;
+  background: #121212;
 }
 
 .submit-button {
-  background-color: #9b87f5;
-  color: #fff;
+  background-color: #a259ff;
+  color: white;
+  padding: 14px 28px;
+  font-weight: 700;
+  border-radius: 14px;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-  background-color: #7e69ab;
+.submit-button:hover,
+.submit-button:focus {
+  background-color: #7e3ed0;
+  outline: none;
 }
 
-/* ==================================================================
-   Dark Mode Overrides
-   ================================================================== */
-body[data-theme="dark"] {
-  background-color: #121212;
-  color: #e0e0e0;
+#feedback-message {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #a259ff;
+  min-height: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
-body[data-theme="dark"] header {
-  background-color: #1c1c1c;
+#feedback-message.show {
+  opacity: 1;
 }
 
-body[data-theme="dark"] header nav a {
-  color: #e0e0e0;
+#encrypting-msg {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.9rem;
+  color: #a259ff;
+  background: rgba(18,18,18,0.85);
+  border-radius: 12px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 9999;
 }
 
-body[data-theme="dark"] .hero h2 {
-  color: #bb86fc;
+#encrypting-msg.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-body[data-theme="dark"] .hero p {
-  color: #e0e0e0;
+#spinner {
+  border: 3px solid #a259ff;
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
 }
 
-body[data-theme="dark"] .services {
-  background-color: #121212;
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
 }
 
-body[data-theme="dark"] .floating-icon {
-  background-color: #bb86fc;
+/* Floating icons styles */
+.floating-icons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-body[data-theme="dark"] .floating-icon:hover {
-  background-color: #7e69ab;
+.floating-icon {
+  background: #a259ff;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(162, 89, 255, 0.5);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-body[data-theme="dark"] .modal-content {
-  background-color: #000;
-  color: #e0e0e0;
-}
-
-body[data-theme="dark"] .modal-content form {
-  background-color: rgba(0,0,0,0.85);
+.floating-icon:hover {
+  background-color: #7e3ed0;
+  transform: scale(1.1);
 }
