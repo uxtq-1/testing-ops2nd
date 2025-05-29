@@ -1,51 +1,38 @@
-const CACHE_NAME = 'ops-solutions-cache-v1';
-const CACHE_URLS = [
+const CACHE_NAME = 'ops-core-cache-v1';
+const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/about.html',
   '/contact.html',
-  '/business-operations.html',
-  '/contact-center.html',
-  '/it-support.html',
-  '/professionals.html',
-  '/css/style.css',        // Adjust if needed
-  '/css/global.css',       // Make sure these match your file paths
+  '/css/global.css',
   '/css/small-screens.css',
+  '/css/contact.css',
   '/js/main.js',
-  '/manifest.json',
-  '/assets/images/hero-image.jpg',
-  '/assets/images/icon-192x192.png',
-  '/assets/images/icon-512x512.png',
-  '/assets/favicon.ico'
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css',
+  // Add more assets if needed
 ];
+
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(CACHE_URLS))
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS_TO_CACHE))
+      .then(() => self.skipWaiting())
   );
 });
+
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
-    caches.keys().then(cacheNames =>
+    caches.keys().then(keys =>
       Promise.all(
-        cacheNames.map(cacheName => {
-          if (!cacheWhitelist.includes(cacheName)) return caches.delete(cacheName);
-        })
+        keys.filter(key => key !== CACHE_NAME)
+          .map(key => caches.delete(key))
       )
-    )
+    ).then(() => self.clients.claim())
   );
 });
+
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(cachedResponse => {
-      if (cachedResponse) return cachedResponse;
-      return fetch(event.request).then(networkResponse => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
-        }
-        return networkResponse;
-      });
-    })
+    caches.match(event.request)
+      .then(cachedRes => cachedRes || fetch(event.request))
   );
 });
