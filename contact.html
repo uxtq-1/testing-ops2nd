@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <!-- ======================================================================
-  Hardened CSP
-  ====================================================================== -->
-  <title>Ops Online Solutions - Secure IT Support & Remote Solutions</title>
-  <meta name="description" content="Ops Online Solutions offers secure IT support, remote solutions, and professional services to optimize your business operations. Empowering businesses with cutting-edge strategies." />
-  <meta name="keywords" content="IT Support, Remote Solutions, Contact Center, Business Operations, Professional Services, Ops Online Solutions, Secure IT Services" />
-  <meta name="robots" content="index, follow" />
-
-  <meta property="og:title" content="Ops Online Solutions - Secure IT Support & Remote Solutions" />
-  <meta property="og:description" content="Ops Online Solutions offers secure IT support, remote solutions, and professional services to optimize your business operations." />
-  <meta property="og:image" content="assets/images/hero-image.jpg" />
-  <meta property="og:url" content="https://www.opsonlinesolutions.com" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.google.com https://www.gstatic.com; style-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data:; connect-src 'self' https://api.opsonlinesolutions.com; frame-src 'self' https://www.google.com;">
+  <title>Ops Online Solutions - Secure Contact</title>
+  <meta name="description" content="Securely contact Ops Online Solutions for IT support and remote solutions.">
+  <meta name="keywords" content="IT Support, Remote Solutions, Contact, Ops Online Solutions">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Ops Online Solutions - Secure Contact">
+  <meta property="og:description" content="Securely contact Ops Online Solutions for IT support and remote solutions.">
+  <meta property="og:image" content="assets/images/hero-image.jpg">
+  <meta property="og:url" content="https://www.opsonlinesolutions.com/contact.html">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -29,55 +25,15 @@
         "contactType": "Customer Service",
         "areaServed": "US",
         "availableLanguage": "English"
-      },
-      "sameAs": [
-        "https://www.facebook.com/yourpage",
-        "https://twitter.com/yourhandle",
-        "https://www.linkedin.com/company/yourcompany"
-      ]
+      }
     }
   </script>
- <!-- ======================================================================
-                      Links to Pages
-    ====================================================================== -->
-  <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" media="(max-width:768px)" href="css/small-screens.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" />
-  <link rel="icon" href="assets/favicon.ico" />
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" media="(max-width:768px)" href="css/small-screens.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous">
+  <link rel="icon" href="assets/favicon.ico">
+  <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY" async defer></script>
 </head>
-<body>
-  <div id="secure-content" style="display:none;">
-    <header>
-      <nav>
-        <ul>
-          <li><a href="index.html" data-en="Home" data-es="Inicio">Home</a></li>
-          <li><a href="business-operations.html" data-en="Business Operations" data-es="Gestión">Business Operations</a></li>
-          <li><a href="contact-center.html" data-en="Contact Center" data-es="Centro de Contacto">Contact Center</a></li>
-          <li><a href="it-support.html" data-en="IT Support" data-es="Soporte IT">IT Support</a></li>
-          <li><a href="professionals.html" data-en="Professionals" data-es="Profesionales">Professionals</a></li>
-          <li><a href="contact.html" data-en="Contact Us" data-es="Enlázate">Contact Us</a></li>
-          <li><a href="join.html" data-en="Join Us" data-es="Únete">Join Us</a></li>
-          <li><a href="security.html" data-en="Security" data-es="Seguridad">Security</a></li>
-        </ul>
-      </nav>
-      <div class="toggle-container">
-        <button id="theme-toggle-desktop">Light</button>
-        <button id="language-toggle-desktop">EN</button>
-      </div>
-      </header>
- <!-- ======================================================================
-                              Hero Section
-    ====================================================================== -->
-    
-    <section class="hero">
-      <h2 data-en="Welcome to Ops Solutions Services" data-es="Bienvenido a OPS Solutions Services">Welcome to Ops Solutions Services</h2>
-      <p data-en="Empowering remote solutions with cutting-edge strategies." data-es="Impulsando soluciones remotas con estrategias innovadoras.">
-        Empowering remote solutions with cutting-edge strategies.
-      </p>
-      <img src="assets/images/hero-image.jpg" alt="Hero Image" class="hero-image" />
-    </section>
-
 <body>
   <header role="banner">
     <nav role="navigation" aria-label="Primary">
@@ -98,226 +54,198 @@
     </div>
   </header>
 
-  <main id="secure-content" role="main" aria-labelledby="pageTitle" tabindex="-1" aria-live="polite" aria-atomic="true" aria-relevant="all">
+  <main role="main" aria-labelledby="pageTitle" tabindex="-1" aria-live="polite">
     <h1 id="pageTitle" data-en="Contact Us at OPS Online Solutions" data-es="Contáctenos en OPS Online Solutions">Contact Us at OPS Online Solutions</h1>
     <p id="description" data-en="Securely contact us with your questions or service requests." data-es="Contáctenos de forma segura con sus preguntas o solicitudes de servicio.">Securely contact us with your questions or service requests.</p>
 
     <form id="contact-form" method="POST" action="https://api.opsonlinesolutions.com/submitContact" autocomplete="off" novalidate>
-      <div style="position:absolute; left:-9999px;" aria-hidden="true">
-        <input type="text" id="contact-hp" name="contact-hp" autocomplete="off" tabindex="-1" />
+      <input type="hidden" name="g-recaptcha-response">
+      <div class="form-group" aria-hidden="true">
+        <input type="text" id="contact-hp" name="contact-hp" autocomplete="off" tabindex="-1">
       </div>
-
-      <div class="form-group" style="display:flex; gap:8px; max-width: 480px; margin: auto;">
-        <select id="country-code" name="country-code" aria-label="Country Code" required style="flex: 1;">
+      <div class="form-group">
+        <select id="country-code" name="country-code" aria-label="Country Code" required>
           <option value="" disabled selected data-en="Select" data-es="Seleccione">Select</option>
           <option value="+1" data-en="USA +1" data-es="EEUU +1">USA +1</option>
           <option value="+44" data-en="UK +44" data-es="Reino Unido +44">UK +44</option>
           <option value="+593" data-en="Ecuador +593" data-es="Ecuador +593">Ecuador +593</option>
           <option value="+52" data-en="Mexico +52" data-es="México +52">Mexico +52</option>
         </select>
-        <input type="tel" id="contact-phone" name="contact-phone" placeholder=" " required style="flex: 2;" />
+        <input type="tel" id="contact-phone" name="contact-phone" placeholder=" " required>
         <label for="contact-phone" data-en="Enter your phone number" data-es="Ingrese su número de teléfono">Enter your phone number</label>
       </div>
-
       <div class="form-group">
-        <input type="text" id="contact-name" name="contact-name" placeholder=" " required />
+        <input type="text" id="contact-name" name="contact-name" placeholder=" " required>
         <label for="contact-name" data-en="Place your name" data-es="Ingrese su nombre">Place your name</label>
       </div>
       <div class="form-group">
-        <input type="text" id="contact-lastname" name="contact-lastname" placeholder=" " required />
+        <input type="text" id="contact-lastname" name="contact-lastname" placeholder=" " required>
         <label for="contact-lastname" data-en="Place your last name" data-es="Ingrese su apellido">Place your last name</label>
       </div>
-
       <div id="address-container">
-        <div class="form-group address-group" style="position:relative;">
-          <input type="text" name="contact-address[]" placeholder=" " required />
+        <div class="form-group address-group">
+          <input type="text" name="contact-address[]" placeholder=" " required>
           <label data-en="Place your address" data-es="Ingrese su dirección">Place your address</label>
-          <button type="button" class="remove-address" aria-label="Remove address field" title="Remove address field" style="position:absolute; top: 8px; right: 8px; background:none; border:none; color:#a259ff; font-size:1.2rem; cursor:pointer;">×</button>
+          <button type="button" class="remove-address" aria-label="Remove address field">×</button>
         </div>
       </div>
-      <button type="button" id="add-address" style="color:#a259ff; background:none; border:none; font-weight:700; margin-bottom: 1rem; cursor:pointer;">+ Add another address</button>
-
-      <div class="form-group" style="display:flex; gap:8px; max-width: 480px; margin: auto;">
-        <input type="text" id="contact-state" name="contact-state" placeholder=" " required style="flex:1" />
+      <button type="button" id="add-address" data-en="+ Add another address" data-es="+ Agregar otra dirección">+ Add another address</button>
+      <div class="form-group">
+        <input type="text" id="contact-state" name="contact-state" placeholder=" " required>
         <label for="contact-state" data-en="State" data-es="Estado">State</label>
-        <input type="text" id="contact-zip" name="contact-zip" placeholder=" " required style="flex:1" />
+        <input type="text" id="contact-zip" name="contact-zip" placeholder=" " required>
         <label for="contact-zip" data-en="Zip Code" data-es="Código Postal">Zip Code</label>
       </div>
-
       <div id="email-container">
-        <div class="form-group email-group" style="position:relative;">
-          <input type="email" name="contact-email[]" placeholder=" " required />
+        <div class="form-group email-group">
+          <input type="email" name="contact-email[]" placeholder=" " required>
           <label data-en="Place your email" data-es="Ingrese su correo">Place your email</label>
-          <button type="button" class="remove-email" aria-label="Remove email field" title="Remove email field" style="position:absolute; top: 8px; right: 8px; background:none; border:none; color:#a259ff; font-size:1.2rem; cursor:pointer;">×</button>
+          <button type="button" class="remove-email" aria-label="Remove email field">×</button>
         </div>
       </div>
-      <button type="button" id="add-email" style="color:#a259ff; background:none; border:none; font-weight:700; margin-bottom: 1rem; cursor:pointer;">+ Add another email</button>
-
+      <button type="button" id="add-email" data-en="+ Add another email" data-es="+ Agregar otro correo">+ Add another email</button>
       <div class="form-group">
         <textarea id="contact-comments" name="contact-comments" rows="6" placeholder=" " maxlength="5000" required></textarea>
         <label for="contact-comments" data-en="Place your comments" data-es="Ingrese sus comentarios">Place your comments</label>
       </div>
-
-      <div id="recaptcha-placeholder" style="margin: 1rem 0; min-height: 78px;"></div>
-
+      <div id="recaptcha-placeholder"></div>
       <button type="submit" class="submit-button" data-en="Send Message" data-es="Enviar Mensaje">Send Message</button>
     </form>
-
-    <div id="feedback-message" aria-live="polite" aria-atomic="true" role="alert"></div>
-    <div id="encrypting-msg" aria-live="polite" aria-atomic="true" role="status" aria-hidden="true">
+    <div id="feedback-message" aria-live="polite" role="alert"></div>
+    <div id="encrypting-msg" aria-live="polite" role="status" aria-hidden="true">
       <div id="spinner" aria-hidden="true"></div>
       <span data-en="Encrypting..." data-es="Encriptando...">Encrypting...</span>
     </div>
   </main>
 
-  <!-- ======================================================================
-                              Footer Section
-    ====================================================================== -->
+  <footer>
+    <p>© 2025 OPS Solutions Services. All rights reserved.</p>
+  </footer>
 
-    <footer>
-      <p>&copy; 2025 OPS Solutions Services. All rights reserved.</p>
-    </footer>
-    
-     <!-- ======================================================================
-                        Join Us Floating-Icons Section
-    ====================================================================== -->
+  <div class="floating-icons">
+    <button class="floating-icon" data-modal="join-modal" aria-label="Join Us"><i class="fas fa-user-plus"></i></button>
+    <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us"><i class="fas fa-envelope-open-text"></i></button>
+  </div>
 
-    <div class="floating-icons">
-      <button class="floating-icon" data-modal="join-modal" aria-label="Join Us"><i class="fas fa-user-plus"></i></button>
-      <button class="floating-icon" data-modal="contact-modal" aria-label="Contact Us"><i class="fas fa-envelope-open-text"></i></button>
-    </div>
-
-    <div id="join-modal" class="modal-overlay" role="dialog" aria-modal="true">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 data-en="Join Us" data-es="Únete a Nosotros">Join Us</h3>
-          <button class="close-modal" data-close>&times;</button>
-        </div>
-        <div class="modal-body">
-          <form id="join-form">
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="join-name" data-en="Name" data-es="Nombre">Name</label>
-                <input type="text" id="join-name" placeholder="Enter your name / Ingrese su Nombre" required />
-              </div>
-              <div class="form-cell">
-                <label for="join-email" data-en="Email" data-es="Correo Electrónico">Email</label>
-                <input type="email" id="join-email" placeholder="Enter your email / Ingrese su correo electrónico" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="join-contact" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-                <input type="tel" id="join-contact" placeholder="Enter your contact number / Ingrese su número" required />
-              </div>
-              <div class="form-cell">
-                <label for="join-date" data-en="Date" data-es="Fecha">Date</label>
-                <input type="date" id="join-date" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="join-time" data-en="Time" data-es="Hora">Time</label>
-                <input type="time" id="join-time" required />
-              </div>
-              <div class="form-cell">
-                <label for="join-resume" data-en="Upload Your Resume" data-es="Sube tu Currículum">Upload Your Resume</label>
-                <input type="file" id="join-resume" accept=".pdf,.doc,.docx" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="join-cover" data-en="Upload Your Cover Letter" data-es="Sube tu Carta de Presentación">Upload Your Cover Letter</label>
-                <input type="file" id="join-cover" accept=".pdf,.doc,.docx" required />
-              </div>
-              <div class="form-cell">
-                <label for="join-comment" data-en="Comment" data-es="Comentario">Comment</label>
-                <textarea id="join-comment" rows="4" placeholder="Tell us about yourself" required></textarea>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" form="join-form" class="submit-button" data-en="Submit" data-es="Enviar">Submit</button>
-        </div>
+  <div id="join-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-en="Join Us" data-es="Únete a Nosotros">Join Us</h3>
+        <button class="close-modal" data-close>×</button>
       </div>
-    </div>
-
-     <!-- ======================================================================
-                        Contact Us Floating-Icons Section
-    ====================================================================== -->
-    
-    <div id="contact-modal" class="modal-overlay" role="dialog" aria-modal="true">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 data-en="Contact Us" data-es="Contáctenos">Contact Us</h3>
-          <button class="close-modal" data-close>&times;</button>
-        </div>
-        <div class="modal-body">
-          <form id="contact-form">
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="contact-name" data-en="Name" data-es="Nombre">Name</label>
-                <input type="text" id="contact-name" placeholder="Enter your name / Ingrese su Nombre" required />
-              </div>
-              <div class="form-cell">
-                <label for="contact-email" data-en="Email" data-es="Correo Electrónico">Email</label>
-                <input type="email" id="contact-email" placeholder="Enter your email / Ingrese su correo electrónico" required />
-              </div>
+      <div class="modal-body">
+        <form id="join-form">
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="join-name" data-en="Name" data-es="Nombre">Name</label>
+              <input type="text" id="join-name" placeholder="Enter your name / Ingrese su Nombre" required>
             </div>
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="contact-number" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
-                <input type="tel" id="contact-number" placeholder="Enter your contact number / Ingrese su número" required />
-              </div>
-              <div class="form-cell">
-                <label for="contact-date" data-en="Preferred Date" data-es="Fecha Preferida">Preferred Date</label>
-                <input type="date" id="contact-date" required />
-              </div>
+            <div class="form-cell">
+              <label for="join-email" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <input type="email" id="join-email" placeholder="Enter your email / Ingrese su correo electrónico" required>
             </div>
-            <div class="form-row">
-              <div class="form-cell">
-                <label for="contact-time" data-en="Preferred Time" data-es="Hora Preferida">Preferred Time</label>
-                <input type="time" id="contact-time" required />
-              </div>
-              <div class="form-cell">
-                <label for="contact-comments" data-en="Comments" data-es="Comentarios">Comments</label>
-                <textarea id="contact-comments" rows="4" placeholder="What service are you interested in? / En qué servicio está interesado?" required></textarea>
-              </div>
+          </div>
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="join-contact" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
+              <input type="tel" id="join-contact" placeholder="Enter your contact number / Ingrese su número" required>
             </div>
-          </form>
-           </div>
-     <!-- ======================================================================
-                        Submit Button Floating-Icons Section
-    ====================================================================== -->
-       <div class="modal-footer">
-          <button type="submit" form="contact-form" class="submit-button" data-en="Send" data-es="Enviar">Send</button>
-        </div>
+            <div class="form-cell">
+              <label for="join-date" data-en="Date" data-es="Fecha">Date</label>
+              <input type="date" id="join-date" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="join-time" data-en="Time" data-es="Hora">Time</label>
+              <input type="time" id="join-time" required>
+            </div>
+            <div class="form-cell">
+              <label for="join-resume" data-en="Upload Your Resume" data-es="Sube tu Currículum">Upload Your Resume</label>
+              <input type="file" id="join-resume" accept=".pdf,.doc,.docx" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="join-cover" data-en="Upload Your Cover Letter" data-es="Sube tu Carta de Presentación">Upload Your Cover Letter</label>
+              <input type="file" id="join-cover" accept=".pdf,.doc,.docx" required>
+            </div>
+            <div class="form-cell">
+              <label for="join-comment" data-en="Comment" data-es="Comentario">Comment</label>
+              <textarea id="join-comment" rows="4" placeholder="Tell us about yourself" required></textarea>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
-     <!-- ======================================================================
-                              Mobile-Nav Section
-    ====================================================================== -->
-       <nav class="mobile-nav">
-      <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
-      <button id="mobile-services-toggle" class="mobile-nav-item"><i class="fas fa-bars"></i><span>Services</span></button>
-      <button id="mobile-language-toggle" class="mobile-nav-item">EN</button>
-      <button id="mobile-theme-toggle" class="mobile-nav-item">Light</button>
-      <a href="#" class="mobile-nav-item"><i class="fas fa-comment-alt"></i><span>Chat</span></a>
-    </nav>
-
-    <div id="mobile-services-menu" class="mobile-services-menu">
-      <ul>
-        <li><a href="business-operations.html">Business Operations</a></li>
-        <li><a href="contact-center.html">Contact Center</a></li>
-        <li><a href="it-support.html">IT Support</a></li>
-        <li><a href="professionals.html">Professionals</a></li>
-      </ul>
+      <div class="modal-footer">
+        <button type="submit" form="join-form" class="submit-button" data-en="Submit" data-es="Enviar">Submit</button>
+      </div>
     </div>
   </div>
-     <!-- ======================================================================
-                           Reference Section
-    ====================================================================== -->
+
+  <div id="contact-modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 data-en="Contact Us" data-es="Contáctenos">Contact Us</h3>
+        <button class="close-modal" data-close>×</button>
+      </div>
+      <div class="modal-body">
+        <form id="contact-modal-form">
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="contact-name-modal" data-en="Name" data-es="Nombre">Name</label>
+              <input type="text" id="contact-name-modal" placeholder="Enter your name / Ingrese su Nombre" required>
+            </div>
+            <div class="form-cell">
+              <label for="contact-email-modal" data-en="Email" data-es="Correo Electrónico">Email</label>
+              <input type="email" id="contact-email-modal" placeholder="Enter your email / Ingrese su correo electrónico" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="contact-number-modal" data-en="Contact Number" data-es="Número de Contacto">Contact Number</label>
+              <input type="tel" id="contact-number-modal" placeholder="Enter your contact number / Ingrese su número" required>
+            </div>
+            <div class="form-cell">
+              <label for="contact-date-modal" data-en="Preferred Date" data-es="Fecha Preferida">Preferred Date</label>
+              <input type="date" id="contact-date-modal" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-cell">
+              <label for="contact-time-modal" data-en="Preferred Time" data-es="Hora Preferida">Preferred Time</label>
+              <input type="time" id="contact-time-modal" required>
+            </div>
+            <div class="form-cell">
+              <label for="contact-comments-modal" data-en="Comments" data-es="Comentarios">Comments</label>
+              <textarea id="contact-comments-modal" rows="4" placeholder="What service are you interested in? / En qué servicio está interesado?" required></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" form="contact-modal-form" class="submit-button" data-en="Send" data-es="Enviar">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-nav">
+    <a href="index.html" class="mobile-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+    <button id="mobile-services-toggle" class="mobile-nav-item"><i class="fas fa-bars"></i><span>Services</span></button>
+    <button id="mobile-language-toggle" class="mobile-nav-item">EN</button>
+    <button id="mobile-theme-toggle" class="mobile-nav-item">Light</button>
+    <a href="#" class="mobile-nav-item"><i class="fas fa-comment-alt"></i><span>Chat</span></a>
+  </nav>
+
+  <div id="mobile-services-menu" class="mobile-services-menu">
+    <ul>
+      <li><a href="business-operations.html">Business Operations</a></li>
+      <li><a href="contact-center.html">Contact Center</a></li>
+      <li><a href="it-support.html">IT Support</a></li>
+      <li><a href="professionals.html">Professionals</a></li>
+    </ul>
+  </div>
+
   <script src="js/main.js" defer></script>
   <script src="js/service-worker.js" defer></script>
 </body>
