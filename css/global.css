@@ -1,13 +1,4 @@
-/* =========================================================
-   For screens ≥ 769px, hide mobile nav (redundant but safe)
-   ========================================================= */
-@media screen and (min-width: 769px) {
-  .mobile-nav,
-  .mobile-services-menu {
-    display: none;
-  }
-}
-
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -22,9 +13,8 @@ body {
   padding: 20px;
   transition: background-color 0.3s, color 0.3s;
 }
-/* =========================================================
-                              header
-   ========================================================= */
+
+/* Header */
 header {
   background-color: #9b87f5;
   color: white;
@@ -45,9 +35,8 @@ header nav a {
   color: white;
   font-weight: bold;
 }
-/* =========================================================
-                     toggle-container
-   ========================================================= */
+
+/* Toggle container */
 .toggle-container {
   position: absolute;
   top: 10px;
@@ -70,9 +59,7 @@ header nav a {
   background-color: #9b87f5;
 }
 
-/* =========================================================
-                              hero
-   ========================================================= */
+/* Hero */
 .hero {
   text-align: center;
   padding: 4rem 1rem;
@@ -94,25 +81,17 @@ header nav a {
   height: auto;
   margin-top: 2rem;
   border-radius: 10px;
+  loading: lazy; /* Performance optimization */
 }
-/* =========================================================
-                           services
-   ========================================================= */
-.c {
+
+/* Services */
+.services {
   padding: 2rem;
   background-color: #f1f0fb;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
-}
-
-.services {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: space-between;
-  flex-direction: row; /* explicitly horizontal */
 }
 
 .service-item {
@@ -123,7 +102,6 @@ header nav a {
   text-align: center;
   padding: 1.5rem;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-  color: inherit;
 }
 
 .service-item h3 {
@@ -148,9 +126,8 @@ header nav a {
 .service-item .btn:hover {
   background-color: #7e69ab;
 }
-/* =========================================================
-                           footer
-   ========================================================= */
+
+/* Footer */
 footer {
   background-color: #7e69ab;
   color: white;
@@ -159,6 +136,7 @@ footer {
   margin-top: 2rem;
 }
 
+/* Floating icons */
 .floating-icons {
   position: fixed;
   bottom: 110px;
@@ -168,9 +146,7 @@ footer {
   gap: 1rem;
   z-index: 2000;
 }
-/* =========================================================
-                       floating-icon
-   ========================================================= */
+
 .floating-icon {
   background-color: #9b87f5;
   border: none;
@@ -190,9 +166,8 @@ footer {
   background-color: #7e69ab;
   transform: scale(1.1);
 }
-/* =========================================================
-                       modal-overlay
-   ========================================================= */
+
+/* Modal */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -201,7 +176,6 @@ footer {
   justify-content: center;
   align-items: center;
   z-index: 3000;
-  flex-direction: column;
 }
 
 .modal-overlay.active {
@@ -253,9 +227,7 @@ footer {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
-/* =========================================================
-                         form-cell
-   ========================================================= */
+
 .form-cell {
   display: flex;
   flex-direction: column;
@@ -267,10 +239,19 @@ footer {
 }
 
 .form-cell input,
-.form-cell textarea {
+.form-cell textarea,
+.form-cell select {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.form-cell input:focus,
+.form-cell textarea:focus,
+.form-cell select:focus {
+  border-color: #a259ff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(162, 89, 255, 0.5);
 }
 
 .modal-footer {
@@ -279,9 +260,7 @@ footer {
   padding: 1rem;
   border-top: 1px solid #eee;
 }
-/* =========================================================
-                       submit-button
-   ========================================================= */
+
 .submit-button {
   background-color: #9b87f5;
   color: #fff;
@@ -295,9 +274,116 @@ footer {
 .submit-button:hover {
   background-color: #7e69ab;
 }
-/* =========================================================
-                       dark-theme site
-   ========================================================= */
+
+/* Contact form styles */
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 0.9rem;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus + label,
+.form-group textarea:focus + label,
+.form-group select:focus + label,
+.form-group input.has-value + label,
+.form-group textarea.has-value + label,
+.form-group select.has-value + label {
+  top: -20px;
+  font-size: 0.8rem;
+  color: #a259ff;
+}
+
+.address-group,
+.email-group {
+  position: relative;
+}
+
+.remove-address,
+.remove-email {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #a259ff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#add-address,
+#add-email {
+  color: #a259ff;
+  background: none;
+  border: none;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+#recaptcha-placeholder {
+  margin: 1rem 0;
+  min-height: 78px;
+}
+
+#feedback-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#feedback-message.show {
+  opacity: 1;
+}
+
+#encrypting-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#encrypting-msg.show {
+  opacity: 1;
+}
+
+#spinner {
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #a259ff;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Dark theme */
 body[data-theme="dark"] {
   background-color: #121212;
   color: #e0e0e0;
@@ -332,34 +418,30 @@ body[data-theme="dark"] .floating-icon:hover {
 }
 
 body[data-theme="dark"] .modal-content {
-  background-color: #d3caff;
+  background-color: #1e1e1e;
   color: #e0e0e0;
 }
 
-/* =========================================================
-            dark-theme background-color floating icons
-   ========================================================= */
-
-body[data-theme="dark"] .form-cell input,
-body[data-theme="dark"] .form-cell textarea {
-  background-color: #ffffff;      /* Dark purple background */
-  color: #8c8c8c;                 /* Soft light text */
-  border: 1px solid #5a4580;      /* Darker purple border */
-  font-size: 0.9rem;              /* Slightly smaller text */
+body[data-theme="dark"] .form-group input,
+body[data-theme="dark"] .form-group textarea,
+body[data-theme="dark"] .form-group select {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border: 1px solid #5a4580;
 }
 
-body[data-theme="dark"] .form-cell input::placeholder,
-body[data-theme="dark"] .form-cell textarea::placeholder {
-  color: #c79cfc;                 /* White placeholder text */
+body[data-theme="dark"] .form-group input::placeholder,
+body[data-theme="dark"] .form-group textarea::placeholder {
+  color: #c79cfc;
 }
 
-body[data-theme="dark"] .form-cell input:focus,
-body[data-theme="dark"] .form-cell textarea:focus {
-  border-color: #bb86fc;          /* Bright purple border on focus */
-  outline: none;
-  box-shadow: 0 0 8px 2px #bb86fc; /* Purple glow */
+body[data-theme="dark"] .form-group input:focus,
+body[data-theme="dark"] .form-group textarea:focus,
+body[data-theme="dark"] .form-group select:focus {
+  border-color: #bb86fc;
+  box-shadow: 0 0 8px #bb86fc;
 }
 
-body[data-theme="dark"] .form-cell label {
-  color: #000000 !important;      /* Force black labels */
+body[data-theme="dark"] .form-group label {
+  color: #e0e0e0;
 }
